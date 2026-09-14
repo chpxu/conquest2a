@@ -758,24 +758,25 @@ class plot_density:
         if (t2[-1] - t2[0]) > (t1[-1] - t1[0]):
             return grid, t2, t1, v2, v1, True
         return grid.T, t1, t2, v1, v2, False
+
     def _construct_atom_legend(
         self,
         ax: Any,
         syms: Sequence[str],
         atom_size: float,
         atom_bgcolor: Mapping[str, Mapping[str, Any]] | None = None,
-        atom_edgecolor: Mapping[str, Mapping[str, Any]] | None= None,
+        atom_edgecolor: Mapping[str, Mapping[str, Any]] | None = None,
         linestyle_map: Mapping[str, str] | None = None,
         default_linestyle: str = "solid",
         legend_linewidth: float = 1.0,
-        ) -> list[Any]:
+    ) -> list[Any]:
         legend_handles = []
         lin_map = linestyle_map or {}
         for sym in syms:
             color = (
-            _ELEMENT_COLOURS.get(sym, "#00000000")
-            if atom_bgcolor is None
-            else atom_bgcolor[sym]
+                _ELEMENT_COLOURS.get(sym, "#00000000")
+                if atom_bgcolor is None
+                else atom_bgcolor[sym]
             )
             edgecolor = (
                 _ELEMENT_COLOURS.get(sym, "#000000")
@@ -785,14 +786,15 @@ class plot_density:
             ls = lin_map.get(sym, default_linestyle)
 
             proxy = ax.scatter(
-                [], [],
+                [],
+                [],
                 s=atom_size,
                 color=color,
                 edgecolors=edgecolor,
                 linestyle=ls,
                 linewidths=legend_linewidth,
                 label=sym,
-                )
+            )
             legend_handles.append(proxy)
 
         return legend_handles
@@ -848,7 +850,7 @@ class plot_density:
                 continue
             bgcolor = "#000000"
 
-            edgecolor = "#000000"
+            edgecolor: str | None = "#000000"
             if atom_bgcolor is None:
                 bgcolor = _ELEMENT_COLOURS.get(sym, "#00000000")
             elif sym in atom_bgcolor.keys():
@@ -875,7 +877,7 @@ class plot_density:
             if label_atoms:
                 textcolour = "black"
                 if atom_fontcolor is not None and sym in atom_fontcolor.keys():
-                    textcolour  = atom_fontcolor[sym]
+                    textcolour = atom_fontcolor[sym]
                 _atom_text(
                     ax=ax,
                     pos_x=t1a,
@@ -918,7 +920,7 @@ class plot_density:
         atom_size: float = 160,
         atom_fontsize: float = 5,
         atom_fontcolor: Mapping[str, str] | None = None,
-        atom_bgcolor:Mapping[str, str]  | None = None,
+        atom_bgcolor: Mapping[str, str] | None = None,
         atom_edgecolor: Mapping[str, str] | None = None,
         atom_kwargs: Mapping[str, Mapping[str, Any]] | None = None,
         **imshow_kwargs: Any,
@@ -953,7 +955,9 @@ class plot_density:
         l1 = (xlim[1] - xlim[0]) if xlim is not None else (t1[-1] - t1[0])
         l2 = (ylim[1] - ylim[0]) if ylim is not None else (t2[-1] - t2[0])
         if normalise:
-            density_grid = (density_grid - np.min(density_grid)) / (np.max(density_grid) - np.min(density_grid))
+            density_grid = (density_grid - np.min(density_grid)) / (
+                np.max(density_grid) - np.min(density_grid)
+            )
 
         # If this data is meant to be part of some larger figure then we should reference external figure
         # Otherwise assume user wants a standalone plot and make and save own figure instance
@@ -971,7 +975,7 @@ class plot_density:
             "cmap": cmap,
             "aspect": "equal",
             "interpolation": "lanczos",
-            "norm": "linear"
+            "norm": "linear",
         }
         # vmax, vmin and Norm interact separately
         if log_scale:
