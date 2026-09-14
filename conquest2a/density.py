@@ -758,6 +758,45 @@ class plot_density:
         if (t2[-1] - t2[0]) > (t1[-1] - t1[0]):
             return grid, t2, t1, v2, v1, True
         return grid.T, t1, t2, v1, v2, False
+    def _construct_atom_legend(
+        self,
+
+        ax: Any,
+        syms: Sequence[str],
+        atom_size: float,
+        atom_bgcolor: Mapping[str, Any] | None = None,
+        atom_edgecolor: Mapping[str, Any] |None= None,
+        linestyle_map: Mapping[str, str] | None = None,
+        default_linestyle: str = "solid",
+        legend_linewidth: float = 1.0,
+        ) -> list[Any]:
+        legend_handles = []
+        lin_map = linestyle_map or {}
+        for sym in syms:
+            color = (
+            _ELEMENT_COLOURS.get(sym, "#00000000")
+            if atom_bgcolor is None
+            else atom_bgcolor[sym]
+            )
+            edgecolor = (
+                _ELEMENT_COLOURS.get(sym, "#000000")
+                if atom_edgecolor is None
+                else atom_edgecolor[sym]
+            )
+            ls = lin_map.get(sym, default_linestyle)
+
+            proxy = ax.scatter(
+                [], [],
+                s=atom_size,
+                color=color,
+                edgecolors=edgecolor,
+                linestyle=ls,
+                linewidths=legend_linewidth,
+                label=sym,
+                )
+            legend_handles.append(proxy)
+
+        return legend_handles
 
     def _plot_atoms(
         self,
@@ -768,10 +807,10 @@ class plot_density:
         label_atoms: bool = True,
         atom_size: float = 160,
         atom_fontsize: float = 5,
-        atom_fontcolor: dict[str, str] | None = None,
-        atom_bgcolor: dict[str, str] | None = None,
-        atom_edgecolor: dict[str, str] | None = None,
-        atom_kwargs: Mapping[str, Any] | None = None,
+        atom_fontcolor: Mapping[str, str] | None = None,
+        atom_bgcolor: Mapping[str, str] | None = None,
+        atom_edgecolor: Mapping[str, str] | None = None,
+        atom_kwargs: Mapping[str, Mapping[str, Any]] | None = None,
         **kwargs: Any,
     ) -> None:
         def _atom_text(
@@ -825,7 +864,8 @@ class plot_density:
                 "zorder": 5,
                 "clip_on": True,
             }
-            merged_args: Mapping[str, Any] = {**scatter_args, **(atom_kwargs or {})}
+            per_atom_kwargs = (atom_kwargs or {}).get(sym, {})
+            merged_args: Mapping[str, Any] = {**scatter_args, **per_atom_kwargs}
             ax.scatter(t1a, t2a, **merged_args)
 
             if label_atoms:
@@ -869,10 +909,10 @@ class plot_density:
         label_atoms: bool = True,
         atom_size: float = 160,
         atom_fontsize: float = 5,
-        atom_fontcolor: dict[str, str] | None = None,
-        atom_bgcolor: dict[str, str] | None = None,
-        atom_edgecolor: dict[str, str] | None = None,
-        atom_kwargs: Mapping[str, Any] | None = None,
+        atom_fontcolor: Mapping[str, str] | None = None,
+        atom_bgcolor:Mapping[str, str]  | None = None,
+        atom_edgecolor: Mapping[str, str] | None = None,
+        atom_kwargs: Mapping[str, Mapping[str, Any]] | None = None,
         **imshow_kwargs: Any,
     ) -> tuple[Any, Any, Any]:
         """Create the plot and save it to disk.
@@ -1007,9 +1047,9 @@ class plot_density:
         atom_symbols: Sequence[str] | None = None,
         atom_indices: Sequence[int] | None = None,
         label_atoms: bool = True,
-        atom_fontcolor: dict[str, str] | None = None,
-        atom_bgcolor: dict[str, str] | None = None,
-        atom_edgecolor: dict[str, str] | None = None,
+        atom_fontcolor: Mapping[str, str] | None = None,
+        atom_bgcolor: Mapping[str, str] | None = None,
+        atom_edgecolor: Mapping[str, str] | None = None,
         atom_size: float = 160,
         atom_fontsize: float = 8,
         atom_kwargs: Mapping[str, Any] | None = None,
