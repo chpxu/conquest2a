@@ -760,12 +760,11 @@ class plot_density:
         return grid.T, t1, t2, v1, v2, False
     def _construct_atom_legend(
         self,
-
         ax: Any,
         syms: Sequence[str],
         atom_size: float,
-        atom_bgcolor: Mapping[str, Any] | None = None,
-        atom_edgecolor: Mapping[str, Any] |None= None,
+        atom_bgcolor: Mapping[str, Mapping[str, Any]] | None = None,
+        atom_edgecolor: Mapping[str, Mapping[str, Any]] | None= None,
         linestyle_map: Mapping[str, str] | None = None,
         default_linestyle: str = "solid",
         legend_linewidth: float = 1.0,
@@ -847,16 +846,21 @@ class plot_density:
                 # t1a, t2a = t1a, t2a
             if atom_symbols is not None and sym not in atom_symbols:
                 continue
-            color = (
-                _ELEMENT_COLOURS.get(sym, "#00000000")
-                if atom_bgcolor is None
-                else atom_bgcolor[sym]
-            )
-            edgecolor = (
-                _ELEMENT_COLOURS.get(sym, "#000000")
-                if atom_edgecolor is None
-                else atom_edgecolor[sym]
-            )
+            bgcolor = "#000000"
+
+            edgecolor = "#000000"
+            if atom_bgcolor is None:
+                bgcolor = _ELEMENT_COLOURS.get(sym, "#00000000")
+            elif sym in atom_bgcolor.keys():
+                bgcolor = atom_bgcolor[sym]
+
+            if atom_edgecolor is None:
+                edgecolor = None
+            elif sym in atom_edgecolor.keys():
+                edgecolor = atom_edgecolor[sym]
+
+            color = bgcolor
+
             scatter_args: Mapping[str, Any] = {
                 "s": atom_size,
                 "color": color,
@@ -869,13 +873,16 @@ class plot_density:
             ax.scatter(t1a, t2a, **merged_args)
 
             if label_atoms:
+                textcolour = "black"
+                if atom_fontcolor is not None and sym in atom_fontcolor.keys():
+                    textcolour  = atom_fontcolor[sym]
                 _atom_text(
                     ax=ax,
                     pos_x=t1a,
                     pos_y=t2a,
                     sym=sym,
                     fontsize=atom_fontsize,
-                    color="black" if atom_fontcolor is None else atom_fontcolor[sym],
+                    color=textcolour,
                     **kwargs,
                 )
 
@@ -894,6 +901,7 @@ class plot_density:
         vmax: float | None = None,
         figsize: tuple[float, float] | None = None,
         ax: Any | None = None,
+        normalise: bool = False,
         owns_figure: bool = False,
         xlabel: str | bool | None = None,
         ylabel: str | bool | None = None,
@@ -944,6 +952,8 @@ class plot_density:
         # l2 = t2[-1] - t2[0]
         l1 = (xlim[1] - xlim[0]) if xlim is not None else (t1[-1] - t1[0])
         l2 = (ylim[1] - ylim[0]) if ylim is not None else (t2[-1] - t2[0])
+        if normalise:
+            density_grid = (density_grid - np.min(density_grid)) / (np.max(density_grid) - np.min(density_grid))
 
         # If this data is meant to be part of some larger figure then we should reference external figure
         # Otherwise assume user wants a standalone plot and make and save own figure instance
@@ -961,6 +971,7 @@ class plot_density:
             "cmap": cmap,
             "aspect": "equal",
             "interpolation": "lanczos",
+            "norm": "linear"
         }
         # vmax, vmin and Norm interact separately
         if log_scale:
@@ -1029,6 +1040,7 @@ class plot_density:
         atom_number: int | None = None,
         shift: tuple[float, float] = (0.0, 0.0),
         thickness: float = 1,
+        normalise: bool = False,
         vmin: float | None = 0.0,
         vmax: float | None = None,
         figsize: tuple[float, float] | None = None,
@@ -1068,6 +1080,8 @@ class plot_density:
         :type filename: ``str | None``, optional
         :param thickness: The Cartesian distance perpendicular to the plane to consider atoms as lying on the slice, defaults to 1 Bohr. Only useful if ``show_atoms=True``
         :type thickness: ``float``, optional
+        :param normalise: Whether to normalise densities to the interval [0,1]. Useful if attempting to plot densities with different sums. Defaults to ``false``.
+        :type normalise: ``bool``, optional
         :param log_scale: Whether to plot the density on a base-10 logarithmic scale, defaults to False
         :type log_scale: ``bool``, optional
         :param atom_number: Atom number to center the density plot on
@@ -1160,6 +1174,7 @@ class plot_density:
             vmax=vmax,
             figsize=figsize,
             ax=ax,
+            normalise=normalise,
             owns_figure=owns_figure,
             xlabel=xlabel,
             ylabel=ylabel,
