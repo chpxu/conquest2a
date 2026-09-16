@@ -137,8 +137,8 @@ class density(processor_base):
     Example: for ``paths=[a, b, c, d]`` and ``operations="+/-"``, the resulting data is
     ``((a + b) / c) - d``.
 
-    :param hkl: The :math:`hkl` slice of the crystal to plot charge densities in.
-    :type hkl: :ref:`INT ARRAY <types>`
+    :param hkl: The :math:`hkl` slice of the crystal to plot charge densities in. This will accept floats if you really want a specific plane.
+    :type hkl: :ref:`REAL ARRAY <types>`
     :param offset: The :math:`hkl` direction defines a family of planes. Use ``offset`` to select which one (i.e. wherein the unit cell).
     :type offset: ``float``
     :param paths: Path(s) to one or more charge density (``.cube``) files. At least
@@ -161,7 +161,7 @@ class density(processor_base):
 
     def __init__(
         self,
-        hkl: tuple[int, int, int],
+        hkl: tuple[float, float, float],
         offset: float,
         paths: Sequence[str],
         operations: str | None = None,
@@ -185,7 +185,7 @@ class density(processor_base):
                     f"Unknown operation {op!r}; expected one of {list(self._VALID_OPERATION_CHARS)}."
                 )
 
-        self.hkl: INT_ARRAY = np.array(hkl)
+        self.hkl: REAL_ARRAY = np.array(hkl)
         self.offset: float = offset
         self.paths: list[str] = list(paths)
         self.operations: str = operations
@@ -297,6 +297,7 @@ class density(processor_base):
         interp_order: int = 5,
         shift: tuple[float, float] = (0.0, 0.0),
         window_repeat: float | tuple[float, float] = 1.0,
+        rotation_deg: float = 0.0,
     ) -> tuple[Any, REAL_ARRAY, REAL_ARRAY, REAL_ARRAY, REAL_ARRAY, REAL_ARRAY]:
         """Sample the charge density on the :math:`[hkl]` plane at fractional ``offset``.
 
@@ -329,19 +330,20 @@ class density(processor_base):
 
         v1, v2, _ = self.inplane_basis()
         origin = self.plane_origin() + shift_bohr[0] * v1 + shift_bohr[1] * v2
-
+        if abs(rotation_deg) > 1e-3:
+            v1, v2 = self._rotate_inplane_vectors(v1, v2, rotation_deg)
         length_1, length_2 = self.inplane_range(v1, v2)
         length_1 *= window_repeat[0]
         length_2 *= window_repeat[1]
-        t1 = np.linspace(-length_1 / 2, length_1 / 2, n_points)
-        t2 = np.linspace(-length_2 / 2, length_2 / 2, n_points)
+        t1 = np.linspace(-length_1, length_1, n_points)
+        t2 = np.linspace(-length_2, length_2, n_points)
         grid_1, grid_2 = np.meshgrid(t1, t2, indexing="ij")
         pts_cart = origin + grid_1[..., None] * v1 + grid_2[..., None] * v2
         pts_frac = (pts_cart @ np.linalg.inv(self.cell)) % 1.0
         vox = pts_frac * self.data.shape
-        data_padded = np.pad(self.data, interp_order + 1, mode="wrap")
+        data_padded = np.pad(self.data, 2 * interp_order + 1, mode="wrap")
 
-        coords = vox.reshape(-1, 3).T + interp_order + 1
+        coords = vox.reshape(-1, 3).T + 2 * interp_order + 1
         density: REAL_ARRAY = map_coordinates(
             data_padded, coords, order=interp_order, mode="nearest"
         ).reshape(n_points, n_points)
@@ -352,6 +354,18 @@ class density(processor_base):
         origin_out: REAL_ARRAY = self._to_output_length(origin)
 
         return density, v1, v2, t1_out, t2_out, origin_out
+
+    @staticmethod
+    def _rotate_inplane_vectors(
+        v1: REAL_ARRAY, v2: REAL_ARRAY, angle_deg: float | None = None
+    ) -> tuple[REAL_ARRAY, REAL_ARRAY]:
+        if angle_deg is None or (abs(angle_deg) < 1e-3):
+            return v1, v2
+        theta = np.radians(angle_deg)
+        c, s = np.cos(theta), np.sin(theta)
+        v1_rot = c * v1 + s * v2
+        v2_rot = -s * v1 + c * v2
+        return v1_rot, v2_rot
 
     def shift_onto_atom(self, atom_number: int) -> tuple[float, float]:
         """Produce the vector shift needed to set an atom to be at the origin of the plane.
@@ -750,15 +764,6 @@ class plot_density:
             filename += f"_{self.density.operations}"
         return f"{filename}.{self.extension}"
 
-    @staticmethod
-    def _orient_for_plot(
-        grid: REAL_ARRAY, t1: REAL_ARRAY, t2: REAL_ARRAY, v1: REAL_ARRAY, v2: REAL_ARRAY
-    ) -> tuple[REAL_ARRAY, REAL_ARRAY, REAL_ARRAY, REAL_ARRAY, REAL_ARRAY, bool]:
-        """Private method to rotate the plot so the horizontal direction is longest"""
-        if (t2[-1] - t2[0]) > (t1[-1] - t1[0]):
-            return grid, t2, t1, v2, v1, True
-        return grid.T, t1, t2, v1, v2, False
-
     def _construct_atom_legend(
         self,
         ax: Any,
@@ -803,7 +808,6 @@ class plot_density:
         self,
         ax: Any,
         atom_data: tuple[REAL_ARRAY, REAL_ARRAY, list[str]],
-        transposed: bool,
         atom_symbols: Sequence[str] | None,
         label_atoms: bool = True,
         atom_size: float = 160,
@@ -840,12 +844,9 @@ class plot_density:
             )
 
         t1s, t2s, syms = atom_data
-        for t1a, t2a, sym in zip(t1s, t2s, syms):
-            if transposed:
-                temp1a = deepcopy(t1a)
-                temp2a = deepcopy(t2a)
-                t1a, t2a = temp2a, temp1a
-                # t1a, t2a = t1a, t2a
+        # Swap t1, t2 as coordinates are inverted from imshow
+        for t1a, t2a, sym in zip(t2s, t1s, syms):
+            # t1a, t2a = t2a, t1a
             if atom_symbols is not None and sym not in atom_symbols:
                 continue
             bgcolor = "#000000"
@@ -917,8 +918,8 @@ class plot_density:
         cbar_kwargs: Mapping[str, Any] | None = None,
         atom_symbols: Sequence[str] | None = None,
         label_atoms: bool = True,
-        atom_size: float = 160,
-        atom_fontsize: float = 5,
+        atom_size: float = 50,
+        atom_fontsize: float = 8,
         atom_fontcolor: Mapping[str, str] | None = None,
         atom_bgcolor: Mapping[str, str] | None = None,
         atom_edgecolor: Mapping[str, str] | None = None,
@@ -947,11 +948,16 @@ class plot_density:
         :returns: Tuple containing figure, axes and imshow instances created
         :rtype: ``tuple[Any, Any, Any]``
         """
-        density_grid, t1, t2, v1, v2, transposed = self._orient_for_plot(
-            density_grid, t1, t2, v1, v2
+        dx = float(np.mean(np.diff(t1)))
+        dy = float(np.mean(np.diff(t2)))
+        # Account for imshow centering
+        extent = (
+            t1[0] - dx / 2,
+            t1[-1] + dx / 2,
+            t2[0] - dy / 2,
+            t2[-1] + dy / 2,
         )
-        # l1 = t1[-1] - t1[0]
-        # l2 = t2[-1] - t2[0]
+
         l1 = (xlim[1] - xlim[0]) if xlim is not None else (t1[-1] - t1[0])
         l2 = (ylim[1] - ylim[0]) if ylim is not None else (t2[-1] - t2[0])
         if normalise:
@@ -971,7 +977,7 @@ class plot_density:
 
         imshow_args: MutableMapping[str, Any] = {
             "origin": "lower",
-            "extent": (t1[0], t1[-1], t2[0], t2[-1]),
+            "extent": extent,
             "cmap": cmap,
             "aspect": "equal",
             "interpolation": "lanczos",
@@ -1014,7 +1020,6 @@ class plot_density:
             self._plot_atoms(
                 ax,
                 atom_data,
-                transposed,
                 atom_symbols=atom_symbols,
                 label_atoms=label_atoms,
                 atom_size=atom_size,
@@ -1045,6 +1050,7 @@ class plot_density:
         shift: tuple[float, float] = (0.0, 0.0),
         thickness: float = 1,
         normalise: bool = False,
+        rotation: float = 0.0,
         vmin: float | None = 0.0,
         vmax: float | None = None,
         figsize: tuple[float, float] | None = None,
@@ -1086,11 +1092,13 @@ class plot_density:
         :type thickness: ``float``, optional
         :param normalise: Whether to normalise densities to the interval [0,1]. Useful if attempting to plot densities with different sums. Defaults to ``false``.
         :type normalise: ``bool``, optional
+        :param rotation: The angle to rotate the in-plane basis by in degrees. Defaults to 0.0
+        :type rotation: ``float``, optional (degrees)
         :param log_scale: Whether to plot the density on a base-10 logarithmic scale, defaults to False
         :type log_scale: ``bool``, optional
         :param atom_number: Atom number to center the density plot on
         :type atom_number: ``int``, optional
-        :param shift: Vector to shift the origin on the plane by
+        :param shift: Vector to shift the origin on the plane by. Note the shift is :math:`(\\Delta v_1, \\Delta v_2)`.
         :type shift: ``tuple[float, float]``, optional
         :param vmin: Minimum value to set the colour scale at, defaults to 0.0
         :type vmin: ``float | None``, optional
@@ -1155,7 +1163,10 @@ class plot_density:
             raise ValueError("Cannot have a negative atom number")
         shift_vect = self.density.shift_onto_atom(atom_number) if atom_number is not None else shift
         density_grid, v1, v2, t1, t2, origin = self.density.extract_slice(
-            n_points=grid_points, shift=shift_vect, window_repeat=window_repeat
+            n_points=grid_points,
+            shift=shift_vect,
+            window_repeat=window_repeat,
+            rotation_deg=rotation,
         )
         atom_data: tuple[REAL_ARRAY, REAL_ARRAY, list[str]] | None = None
         if self.show_atoms:
