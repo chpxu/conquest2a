@@ -146,8 +146,7 @@ class write_coords(processor_base):
         :type data: ``conquest_coordinates``
         :param encoding: File encoding, defaults to "utf-8"
         :type encoding: ``str``, optional
-        :param is_angstrom: Whether the data in ``conquest_coordinates`` is
-        already in angstroms instead of Bohrs, defaults to ``False``.
+        :param is_angstrom: Whether the data in ``conquest_coordinates`` is already in angstroms instead of Bohrs, defaults to ``False``.
         :type is_angstrom: ``bool``, optional
         """
         ele_string, num_string = self.create_atoms_str()
