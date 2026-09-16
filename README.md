@@ -2,23 +2,24 @@
 
 A [CONQUEST](https://github.com/OrderN/CONQUEST-release/) post-processing tool written in Python to do multiple, useful things:
 - Convert between CONQUEST coordinates format and popular `.vasp` and `.(ext)xyz` formats for quick and easy visualisation, e.g. in [VESTA](https://jp-minerals.org/vesta/en/).
-- Create `xsf` files using `AtomCharge.dat` to visualise net spins
-- Create supercells (larger cells formed of repeats of a unit cell)
-- Process and sort (p)DOS files into something easy to use for plotting via matplotlib
-- Process and sort `BandStructure.dat` into something easy to use for plotting via matplotlib
+- Process `AtomCharge.dat` to visualise net spins or vectors
+- Transform cells (generate supercells or transform cells like VESTA) keeping spin patterns and species numbers!
+- Process and sort (p)DOS files into something easy to use for plotting
+- Process and sort `BandStructure.dat` into something easy to use for plotting
 - Nearest-neighbour searching
 - Calculation of dihedral and planar angles
 - Charge and band density post-processing
-- VESTA to CONQUEST coordinates
+- Mapping between VESTA to CONQUEST coordinates
 
 ## Installation
 Usage is simple. In your `venv`, simply
 ```
 pip3 install numpy scipy ase matplotlib scienceplots conquest2a
 ```
-If you are attempting to integrate this directly into your Nix devShell, you will have to manually build the package with `buildPythonPackage`. Support for this as a standalone package will come soon. The [devflake](https://github.com/chpxu/development-flake) in this repo automatically builds and adds it to the devshell environment.
+If you are attempting to integrate this directly into your Nix devShell, this flake exposes it under `packages.default` The [devflake](https://github.com/chpxu/development-flake) in this repo automatically builds and adds it to the devshell environment.
 
-Note: if using SciencePlots<2.2.2 use matplotlib 3.10 or earlier.
+> Note: if using SciencePlots<2.2.2 use matplotlib 3.10 or earlier.
+
 ## Usage
 
 1. [Initialising your input](#initialising-your-input)
@@ -26,7 +27,7 @@ Note: if using SciencePlots<2.2.2 use matplotlib 3.10 or earlier.
 3. [pDOS](#pdos)
 4. [kNN](#k-nearest-neighbours)
 5. [Quantities](#quantities)
-6. [Charge density](#charge-density)
+6. [Volumetric density](#charge-density)
 7. [VESTA conversion](#vesta)
 
 These steps assume you are already in the directory where `Conquest_input` and other relevant files sit. There is however, file path checking + absolute path resolution, for implementing when using in your own scripts, so relative paths _shouldn't_ be an issue.
@@ -35,26 +36,25 @@ These steps assume you are already in the directory where `Conquest_input` and o
 
 First, import everything you might want to use:
 ```py
-from conquest2a.conquest import * # necessary, (1)
-from conquest2a.supercell import * # for supercell creation
+from conquest2a.conquest import conquest_species, conquest_coordinates # necessary for most things, (1)
+from conquest2a.cell.transform import * # for cell transformations
 from conquest2a.writers import * # to write output files to disk
-from conquest2a.pdos import * # to process (p)DOS
+from conquest2a.pdos import pdos # to process (p)DOS
 from conquest2a.band import * # to process BandStructure.dat
-from conquest2a.chden import * # to process cube files from CONQUEST
+from conquest2a.density import chden, bandden # to process cube files from CONQUEST
 from conquest2a.read.quantities import * # to process static output files without ASE
 from conquest2a.algo.nn import nearest_neighbours # for nearest-neighbour searching
 ```
 Next, get the path to your Conquest coordinates file, and instantiate `(1)` as
 ```py
-test_input = conquest_input({1: "Bi", 2: "Mn", 3: "O"}) # replace this dict with your dict
-test_coords_proc = conquest_coordinates_processor("./tests/data/test.dat", test_input)
+test_input = conquest_species({1: "Bi", 2: "Mn", 3: "O"}) # replace this dict with your dict
 ```
 
-Your `dict` inside `conquest_input()` will represent be the Conquest species index to element label map. Note that the `dict` integers should match the ones specified in `Conquest_input` and the coordinates file. Please ensure that the element labels represent real elements - the code will error out if it isn't.
+Your `dict` inside `conquest_species()` will represent be the Conquest species index to element label map. Note that the `dict` integers should match the ones specified in `Conquest_input` and the coordinates file. Please ensure that the element labels represent real elements - the code will error out if it isn't. Support for reading `Conquest_input` may arrive soon...
 
 ### k-Nearest Neighbours
 
-Traditional nearest-neighbour methods involve searching all atoms and specifying an arbitrary cutoff which is expensive for ridiculously large systems (around tens or hundreds of thousands or more atoms). 
+Traditional nearest-neighbour methods involve searching all atoms and specifying an arbitrary cutoff which is expensive for ridiculously large systems (around tens or hundreds of thousands or more atoms).
 
 CONQUEST2a gives each atom a number depending on their location in a Conquest coordinates file.
 
@@ -63,7 +63,7 @@ The algorithm used is a periodic KDTree, which automatically finds nearest neigh
 ```py
 
 from conquest2a.algo.nn import nearest_neighbours
-conquest_map = conquest_input({1: "O", 2: "Bi", 3: "Mn", 4: "Mn", 5: "Mn", 6: "Mn"})
+conquest_map = conquest_species({1: "O", 2: "Bi", 3: "Mn", 4: "Mn", 5: "Mn", 6: "Mn"})
 path = "./tests/data/test_output_input_coords.in"
 coordsproc = conquest_coordinates_processor(path, conquest_map)
 nn = nearest_neighbours(
@@ -72,7 +72,7 @@ nn = nearest_neighbours(
 nn.get_result(2) # Returns the interatomic distance in BOHR and the associated Atom
 ```
 
-**WARNING**: to make index mapping easier, the first element is ALWAYS the atom you passed in to search around. E.g., to search for the **first** nearest neighbour, ensure the integer passed in to `get_result()` is **2**. 
+**WARNING**: to make index mapping easier, the first element is ALWAYS the atom you passed in to search around. E.g., to search for the **first** nearest neighbour, ensure the integer passed in to `get_result()` is **2**.
 
 ### Bandstructures
 
@@ -114,7 +114,7 @@ This will search your directory, here `/yourpath`, for `DOS.dat` (if parameter `
 
 Alternatively, you can get CONQUEST to output angular momentum-resolved DOS. In this case, you can either use `pdos_l_processor` or `pdos_lm_processor` depending on whether you have `AtomXXXXXXX_l.dat` or `AtomXXXXXXX_lm.dat` files respectively. Since they are also different objects, you may use both too. The valid filenames are then stored in `self.all_pdos_files` as a list of strings. To extract the data from a file, follow the same format
 
-```py 
+```py
 lmpdos = pdos_lm_processor(conquest_rundir="/yourpath") # lm is set automatically
 lmpdos.read_file(lmpdos.all_pdos_files[0]) # reads, e.g. "Atom00000001_lm.dat" if that exists in your directory.
 atom1 = lmpdos.blocks # NOTE: this is a SHALLOW COPY. If you do another read, this will be OVERWRITTEN
@@ -140,18 +140,18 @@ where again the numpy arrays are in ascending order of spins. These dicts can be
 See `examples/plot_test_pdos.py` for an example of plotting the data obtained from a pDOS file.
 ### Quantities
 
-As detailed on the [CONQUEST docs](https://conquest.readthedocs.io/en/latest/ase-conquest.html), you can manage it with [ASE](https://ase-lib.org/) indirectly by setting the flag `IO.WriteOutToASEFile True` in your `Conquest_input` file. Sometimes, you just forget to add flags when you need to, and then proceed to do numerous calculations without ASE, and thus `conquest2a/read/quantities.py` was created. 
+As detailed on the [CONQUEST docs](https://conquest.readthedocs.io/en/latest/ase-conquest.html), you can manage it with [ASE](https://ase-lib.org/) indirectly by setting the flag `IO.WriteOutToASEFile True` in your `Conquest_input` file. Sometimes, you just forget to add flags when you need to, and then proceed to do numerous calculations without ASE, and thus `conquest2a/read/quantities.py` was created.
 
 By pointing to a file from a static run, this module will fetch the free energy, Harris-Foulkes energy, DFT total energy, forces on each atom (and assign them to the right `Atom` instances), max force and total stresses from near the end of the file.
 
 First, load your species dictionary correctly, according to your coordinates file. Then,
 
 ```py
-from conquest2a.conquest import *
-from conquest2a.read.quantities import *
-test_input = conquest_input({1: "Bi", 2: "Mn", 3: "O"})
-test_coords_proc = conquest_coordinates_processor("./tests/data/test.dat", test_input)
-output = read_static_file("tests/data/test_output.txt", test_coords_proc) # will do all the quantity fetching automatically
+from conquest2a.conquest import conquest_species, conquest_coordinates
+from conquest2a.read.quantities import read_static_output
+test_species = conquest_species({1: "Bi", 2: "Mn", 3: "O"})
+test_coords = conquest_coordinates("./tests/data/test.dat", test_species)
+output = read_static_output("tests/data/test_output.txt", test_coords_proc) # will do all the quantity fetching automatically
 
 output.dft_energy
 output.harris_foulkes_energy
@@ -165,49 +165,11 @@ CONQUEST allows outputting both band and charge densities. See [CONQUEST post pr
 
 The `density` class uses ASE's [`read_cube`](https://docs.ase-lib.org/_modules/ase/io/cube.html) function to load the volumetric data and atom information. This module is therefore completely independent of the rest of `conquest2a`. It takes in a list of paths, the Miller indices of the plane, the distance from this plane and a string of operations like "+-/" to apply to each subsequent file supplied, see the docs and example below.
 
-To handle specifically charge density and band density, individual classes are supplied, called `chden` and `bandden`. These require the above parameters but instead of a list of paths, simply supply a directory to look for relevant files instead. `chden` will look for `charge_stub.cube` or `charge_stub_up|dn.cube` whilst `bandden` supports filtering by band number, spin and $k$-point. See docs and example for more information.
+To handle specifically charge density and band density, individual classes are supplied, called `chden` and `bandden`. These require the above parameters but instead of a list of paths, simply supply a directory to look for relevant files instead. `chden` will look for `charge_stub.cube` or `charge_stub_up|dn.cube` whilst `bandden` supports filtering by band number, spin and $k$-point. See [docs](https://conquest-to-vasp.readthedocs.io/en/latest/src/density.html) and example for more information.
 
-To use the classes, simply
-```py
-from conquest2a.density import demsity, chden, bandden
-example_chden = chden(
-    np.array([1, 0, 0]),
-    0.0,
-    ch1="tests/data/chden_up.cube",
-    ch2="tests/data/chden_dn.cube",
-    mode="sum",
-)
-filename = None
-chden_plot(example_chden, False).run(filename, log_scale=True)
-```
-The `chden` class reads in the data using ASE, performs the slicing and analysis of the charge density. The class `chden_plot` is a class which provides publication-ready plots using `matplotlib` and `scienceplots`.
-#### Explanation of arguments
-```py
-chden(direction: np.ndarray, offset: float, ch1: str, ch2: str | None, mode: "sum" | "diff" | None)
-```
-- `direction`: length-3 NumPy array specifying the plane
-- `offset`: fractional distance $[0,1]$ this plane is from the origin - the distance is measured from the **centre** of the plane
-- `ch1`: path to a cube file. If you only have one chden file, use this parameter
-- `ch2`: path to another cube file
-- `mode`: set to `sum` or `diff` if you supply two chden files for sum or difference respectively. Will error out if this not `None` and you supply only one file.
+The example plots a normalised total band density in an external Axes instance. It looks like this
 
-```py
-chden_plot(chden: chden, show_atoms: bool = False).run(
-    filename: str,
-    origin = "lower",
-    cmap = "viridis",
-    aspect = "equal",
-    interpolation: str  = "lanczos",
-    log_scale: bool = False,
-    vmin: float,
-    vmax: float
-)
-```
-- `show_atoms` will provide overlays on top of atomic positions with the element - useful for comparison with VESTA/other visualisations
-- `log_scale` will apply `colors.LogNorm()` to get a logarithmic colour bar - useful for revealing details.
-- `aspect` controls the aspect ratio. It defauls to `equals` to get square pixels
-- `origin` sets the origin of the _plot_ in _matplotlib_ to the lower left (it does NOT affect the actual data)
-
+![Band density example](docs/src/bandden.svg)
 
 ### VESTA
 
@@ -216,9 +178,10 @@ VESTA is a very useful tool to set spin patterns using `Edit > Vectors`. CONQUES
 Usage:
 ```py
 from conquest2a.read.vesta import vesta_to_conquest
-from conquest2a.conquest import conquest_input
+from conquest2a.conquest import conquest_species
+
 species = {1: "O", 2: "Bi", 3: "Co", 4: "Co", 5: "Mn", 6: "Mn"}
-conqin = conquest_input(species_dict=species)
+conqin = conquest_species(species_dict=species)
 
 vesta_to_conquest(
         "tests/data/test_vesta_to_conquest.vesta",
@@ -228,6 +191,7 @@ vesta_to_conquest(
 ```
 In CONQUEST, to treat species with different spin (i.e. up/down, collinear spin only), the species entries must be duplicated inside the dictionary `species`. This library treats vectors $(0, 0, 1)$ as spin "up" and $(0, 0, -1)$ as spin "down" when inputting from VESTA. Additionally, it will set the lowest index corresponding to a species as spin up, and then spin down, so `5: "Mn", 6: "Mn"` will make species 5 be spin up and species 6 to be spin down, so make sure you check your `Conquest_input` correctly!
 
+Please see the [docs](https://conquest-to-vasp.readthedocs.io/en/latest/index.html) for more information.
 ## CONTRIBUTING
 
 Thank you for wanting to contribute. I am happy to see open issues or PRs on desired features, particularly pertaining to plotting and post-processing.
