@@ -78,8 +78,7 @@ class Atom:
         )
 
     def reset_symmetry(self) -> None:
-        """Resets ``self.symmetry_number`` back to ``0``.
-        """
+        """Resets ``self.symmetry_number`` back to ``0``."""
         self.symmetry_number = 0
 
 
@@ -245,7 +244,8 @@ class conquest_coordinates:
                 atom.reset_symmetry()
             return
         for atom in self.atoms:
-            if atom.number == atom_number: atom.reset_symmetry()
+            if atom.number == atom_number:
+                atom.reset_symmetry()
         return
 
     def reset_symmetry_site(self, symmetry_number: int = 0) -> None:
@@ -258,9 +258,9 @@ class conquest_coordinates:
         if symmetry_number < 0:
             raise ValueError("Cannot select negative symmetry number")
         for atom in self.atoms:
-            if atom.symmetry_number == symmetry_number: atom.reset_symmetry()
+            if atom.symmetry_number == symmetry_number:
+                atom.reset_symmetry()
         return
-
 
 
 class atom_charge(processor_base):

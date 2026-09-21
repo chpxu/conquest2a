@@ -107,7 +107,10 @@ def test_atom_default_forces_and_spins() -> None:
 
 
 def test_atom_charge_assigns_spin_difference() -> None:
-    charge_proc = atom_charge("tests/data/test_original_AtomCharge.dat", test_coords_proc, )
+    charge_proc = atom_charge(
+        "tests/data/test_original_AtomCharge.dat",
+        test_coords_proc,
+    )
     # spin = up - down, stored in the z-component
     for atom, charge_row in zip(test_coords_proc.atoms, charge_proc.conquest_charge_data):
         assert atom.spins[2] == pytest.approx(charge_row[1] - charge_row[2])

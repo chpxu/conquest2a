@@ -73,13 +73,13 @@ def test_density_rejects_wrong_number_of_operations() -> None:
 
 
 def test_bandden_locates_files() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", band=98)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", bands=[98])
     assert len(bd.all_dens_files) > 0
     assert 98 in bd.bands
 
 
 def test_bandden_filters_by_band_summed_over_kpoints() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", band=98)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", bands=[98])
     assert len(bd.filtered_dens_files) == 2
     for f in bd.filtered_dens_files:
         assert "Band000098" in f
@@ -87,27 +87,27 @@ def test_bandden_filters_by_band_summed_over_kpoints() -> None:
 
 
 def test_bandden_filters_by_kpoint() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", band=98, kpt=1)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", bands=[98], kpts=[1])
     assert len(bd.filtered_dens_files) == 2
     for f in bd.filtered_dens_files:
         assert "kp001" in f
 
 
 def test_bandden_filters_by_spin() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", band=98, spin=1)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", bands=[98], spin=1)
     assert len(bd.filtered_dens_files) == 1
     assert "S1.cube" in bd.filtered_dens_files[0]
 
 
 def test_bandden_filters_by_kpoint_and_spin() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", band=98, kpt=1, spin=2)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", bands=[98], kpts=[1], spin=2)
     assert len(bd.filtered_dens_files) == 1
     assert "kp001" in bd.filtered_dens_files[0]
     assert "S2.cube" in bd.filtered_dens_files[0]
 
 
 def test_bandden_second_band_summed_only() -> None:
-    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", band=99)
+    bd = bandden(DATA_DIR, (1, 0, 0), 0.0, operations="+", bands=[99])
     assert len(bd.filtered_dens_files) == 2
     for f in bd.filtered_dens_files:
         assert "Band000099" in f
@@ -116,12 +116,12 @@ def test_bandden_second_band_summed_only() -> None:
 
 def test_bandden_unknown_band_raises() -> None:
     with pytest.raises(ValueError):
-        bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", band=999)
+        bandden(DATA_DIR, (1, 0, 0), 0.0, operations="", bands=[999])
 
 
 def test_bandden_missing_directory_raises() -> None:
     with pytest.raises(FileNotFoundError):
-        bandden("tests/data/banddensity_missing", (1, 0, 0), 0.0, operations="", band=1)
+        bandden("tests/data/banddensity_missing", (1, 0, 0), 0.0, operations="", bands=[1])
 
 
 DATA_DIR2 = "tests/data/chargedensity"

@@ -16,10 +16,11 @@ import matplotlib.pyplot as plt
 import conquest2a._types as c2at
 from conquest2a.conquest import block_processor
 
+
 class pdos(block_processor):
     """Initialise generic (p)DOS processor class.
 
-    CONQUEST can produce a ``DOS.dat`` containing the total DOS and the local DOS, which ``lm="t"`` will process. To process :math:`l` and :math:`lm`-resolved PDOS files, set ``lm="l"`` and ``lm="lm"` respectively.`
+    CONQUEST can produce a ``DOS.dat`` containing the total DOS and the local DOS, which ``lm="t"`` will process. To process :math:`l` and :math:`lm`-resolved PDOS files, set ``lm="l"`` and ``lm="lm"`` respectively.
 
     :param conquest_rundir: String or Path to the directory containing the (P)DOS files generated from CONQUEST's ``PostProcess`` tool.
     :type conquest_rundir: ``string | Path``
@@ -118,7 +119,6 @@ class pdos(block_processor):
         for filename in self.all_pdos_files:
             self.read_file(filename)
 
-
     def read_pdos_file(self, atom: int) -> None:
         """Reads in the PDOS data of a file corresponding to an atom.
 
@@ -186,10 +186,7 @@ class pdos(block_processor):
     def get_pdos(self, atom_number: int = 0) -> None:
         """Reads and stores the columns of a (p)DOS file in a dictionary sorted by ascending order of angular momentum :math:`l` and ascending order of :math:`m`."""
         self._clear_pdos()
-        _pdos_funcs: dict[str, str] = {
-            "lm": "_lm_pdos",
-            "l": "_l_pdos",
-            "t": "_tdos"        }
+        _pdos_funcs: dict[str, str] = {"lm": "_lm_pdos", "l": "_l_pdos", "t": "_tdos"}
 
         try:
             method_name = _pdos_funcs[self.lm]

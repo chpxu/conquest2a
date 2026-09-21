@@ -23,7 +23,9 @@ class transform_unit_cell:
     def __init__(self, cq_coordinates: conquest_coordinates, tol: float = 1e-4) -> None:
         self.coords: conquest_coordinates = cq_coordinates
         self.tol: float = tol
-        self.transformed_cell_coords: conquest_coordinates = conquest_coordinates(self.coords.conquest_input)
+        self.transformed_cell_coords: conquest_coordinates = conquest_coordinates(
+            self.coords.conquest_input
+        )
 
     def _print_lattice_parameters(
         self, a: float, b: float, c: float, alpha: float, beta: float, gamma: float
