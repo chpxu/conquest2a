@@ -77,7 +77,7 @@
             imports = [ userConfig ]; # settings from config.nix defined by user
             packages.default = pkgs."python${config.languages.python.version}Packages".buildPythonPackage {
               pname = "conquest2a";
-              version = "0.3.0";
+              version = "0.4.0";
               pyproject = true;
               src = ./.;
               buildInputs =

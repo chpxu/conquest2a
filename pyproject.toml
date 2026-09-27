@@ -1,6 +1,6 @@
 [project]
 name = "conquest2a"
-version = "0.3.0"
+version = "0.4.0"
 authors = [{ name = "Chung", email = "dev.chpxu@outlook.com" }]
 description = "A Python utility that deals with some pre- and post-processing functions for the linear scaling DFT program, CONQUEST."
 readme = "README.md"
