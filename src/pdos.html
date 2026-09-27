@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDOS &mdash; CONQUEST2a 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e259d695"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Band structure" href="band.html" />
+    <link rel="prev" title="General Classes" href="conquest.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CONQUEST2a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conquest.html">General Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PDOS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conquest2a.pdos">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.pdos.pdos"><code class="docutils literal notranslate"><span class="pre">pdos</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.get_pdos"><code class="docutils literal notranslate"><span class="pre">pdos.get_pdos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.locate_pdos_files"><code class="docutils literal notranslate"><span class="pre">pdos.locate_pdos_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.process_block"><code class="docutils literal notranslate"><span class="pre">pdos.process_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.process_headers"><code class="docutils literal notranslate"><span class="pre">pdos.process_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.read_dos_file"><code class="docutils literal notranslate"><span class="pre">pdos.read_dos_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.read_pdos_file"><code class="docutils literal notranslate"><span class="pre">pdos.read_pdos_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.pdos.pdos.resolve_path"><code class="docutils literal notranslate"><span class="pre">pdos.resolve_path()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="band.html">Band structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supercell.html">Transforms and supercells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html">Densities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#module-conquest2a.density">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">File I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CONQUEST2a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PDOS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/pdos.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pdos">
+<h1>PDOS<a class="headerlink" href="#pdos" title="Link to this heading"></a></h1>
+<p>The processing of (p)DOS files is entirely handled by the single class <code class="xref py py-class docutils literal notranslate"><span class="pre">pdos</span></code>. It will analyse and store DOS information in dicts.</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">pdos</span></code> class accepts 2 parameters: a path to a directory containing (p)DOS files and a parameter <code class="docutils literal notranslate"><span class="pre">mode</span></code> which is either <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">l</span></code> or <code class="docutils literal notranslate"><span class="pre">lm</span></code>. if the total DOS is requested from CONQUEST, then a <code class="docutils literal notranslate"><span class="pre">DOS.dat</span></code> will be placed in the directory. Its contents are simply the energy, DOS and the local density states (columns) sorted in blocks of ascending spin (Spin 1, then 2). Alternatively, pDOS can be calculated for each atom and can be angular momentum resolved (<span class="math notranslate nohighlight">\(l\)</span>) or further resolved into each quantised momentum <span class="math notranslate nohighlight">\(lm\)</span>. In this case, for any choice of atom (or all atoms), <code class="docutils literal notranslate"><span class="pre">AtomNNNNNNN_[l|lm].dat</span></code> files are output to the running directory. The columns are then the energy, then the total DOS at that energy, then columns of pDOS values sorted in ascending order of <span class="math notranslate nohighlight">\(l,m`\)</span> going towards the right. The files are also placed in blocks for each spin.</p>
+<p>See <cite>this file &lt;https://github.com/chpxu/conquest2a/blob/main/tests/data/Atom00000002DOS_lm.dat&gt;__`for an example :math:`lm</cite>-resolved pDOS and <cite>this other file &lt;https://github.com/chpxu/conquest2a/blob/main/tests/data/Atom00000001DOS_l.dat&gt;__</cite> for an example <span class="math notranslate nohighlight">\(l\)</span>-resolved pDOS file.</p>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>The following code block details how to use each mode.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.pdos</span> <span class="kn">import</span> <span class="n">pdos</span>
+<span class="c1"># TDOS</span>
+<span class="n">dos_proc</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">(</span><span class="s2">&quot;my/directory&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">dos_proc</span><span class="o">.</span><span class="n">get_pdos</span><span class="p">()</span>
+<span class="n">energies</span> <span class="o">=</span> <span class="n">dos_proc</span><span class="o">.</span><span class="n">energy_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># energy</span>
+<span class="n">dos</span> <span class="o">=</span> <span class="n">dos_proc</span><span class="o">.</span><span class="n">pdos_dict</span><span class="p">[</span><span class="s2">&quot;tdos&quot;</span><span class="p">]</span>     <span class="c1"># total DOS</span>
+<span class="n">spin_up_dos</span><span class="p">,</span> <span class="n">spin_dn_dos</span> <span class="o">=</span> <span class="n">dos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># unpack DOS of each spin</span>
+<span class="n">ldos</span> <span class="o">=</span> <span class="n">dos_proc</span><span class="o">.</span><span class="n">pdos_dict</span><span class="p">[</span><span class="s2">&quot;ldos&quot;</span><span class="p">]</span>    <span class="c1"># same behaviour for ldos key</span>
+
+<span class="c1"># l-resolved pDOS</span>
+<span class="n">pdos_lproc</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">(</span><span class="s2">&quot;my/directory&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
+<span class="n">pdos_lproc</span><span class="o">.</span><span class="n">get_pdos</span><span class="p">(</span><span class="n">atom_number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># Will look in my/directory, for l-resolved pDOS files with the atom number.</span>
+<span class="n">pdos_l</span> <span class="o">=</span> <span class="n">pdos_lproc</span><span class="o">.</span><span class="n">pdos_dict</span>                  <span class="c1"># Now contains pDOS information sorted by angular momentum &quot;0&quot;, &quot;1&quot;, &quot;2&quot;</span>
+<span class="n">s_pdos</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">]</span>                          <span class="c1"># s-orbital pdos</span>
+<span class="n">p_pdos</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">]</span>                          <span class="c1"># p-orbital pdos</span>
+<span class="n">d_pdos</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">[</span><span class="s2">&quot;2&quot;</span><span class="p">]</span>                          <span class="c1"># d-orbital pdos</span>
+<span class="c1"># lm-resolved pDOS</span>
+<span class="n">pdos_lmproc</span> <span class="o">=</span> <span class="n">pdos</span><span class="p">(</span><span class="s2">&quot;my/directory&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lm&quot;</span><span class="p">)</span>
+
+<span class="n">pdos_lmproc</span><span class="o">.</span><span class="n">get_pdos</span><span class="p">(</span><span class="n">atom_number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># Will look in my/directory, for lm-resolved pDOS files with the atom number.</span>
+<span class="n">pdos_lm</span> <span class="o">=</span> <span class="n">pdos_lmproc</span><span class="o">.</span><span class="n">pdos_dict</span>                  <span class="c1"># Now contains pDOS information sorted by angular momentum &quot;0,0&quot;, &quot;1,-1&quot;, &quot;1,0&quot;, &quot;1,1&quot;, &quot;2,-2&quot;, &quot;2,-1&quot; ...</span>
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">mode=&quot;lm&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">l</span></code>, each key corresponds to a Python list of NumPy arrays, sorted in order of spin. Therefore, the first element of <code class="docutils literal notranslate"><span class="pre">s_pdos</span></code> in the code block above has 2 elements: <code class="docutils literal notranslate"><span class="pre">[np.array(...),</span> <span class="pre">np.array(...)]</span></code> and the first element (index <code class="docutils literal notranslate"><span class="pre">0</span></code>) corresponds to Spin 1, the second element (index <code class="docutils literal notranslate"><span class="pre">1</span></code>) corresponds to Spin 2. This is the same for <code class="docutils literal notranslate"><span class="pre">pdos_lm[&quot;2,-1&quot;]</span> <span class="pre">=</span> <span class="pre">[np.array(...),</span> <span class="pre">np.array(...)]</span></code>.</p>
+<p>The code will abort if any files cannot be found, including <code class="docutils literal notranslate"><span class="pre">DOS.dat</span></code> and if it cannot find a pDOS file associated with the supplied atom number.</p>
+</section>
+<section id="module-conquest2a.pdos">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-conquest2a.pdos" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.pdos.</span></span><span class="sig-name descname"><span class="pre">pdos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conquest_rundir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lm'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'l'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'t'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'t'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.pdos.pdos" title="Link to this definition"></a></dt>
+<dd><p>Initialise generic (p)DOS processor class.</p>
+<p>CONQUEST can produce a <code class="docutils literal notranslate"><span class="pre">DOS.dat</span></code> containing the total DOS and the local DOS, which <code class="docutils literal notranslate"><span class="pre">lm=&quot;t&quot;</span></code> will process. To process <span class="math notranslate nohighlight">\(l\)</span> and <span class="math notranslate nohighlight">\(lm\)</span>-resolved PDOS files, set <code class="docutils literal notranslate"><span class="pre">lm=&quot;l&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">lm=&quot;lm&quot;</span></code> respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conquest_rundir</strong> (<code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">|</span> <span class="pre">Path</span></code>) – String or Path to the directory containing the (P)DOS files generated from CONQUEST’s <code class="docutils literal notranslate"><span class="pre">PostProcess</span></code> tool.</p></li>
+<li><p><strong>lm</strong> (<code class="docutils literal notranslate"><span class="pre">Literal[&quot;lm&quot;,</span> <span class="pre">&quot;l&quot;,</span> <span class="pre">&quot;t&quot;]</span></code>, optional) – Determines the file-processing mode. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.get_pdos">
+<span class="sig-name descname"><span class="pre">get_pdos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.get_pdos" title="Link to this definition"></a></dt>
+<dd><p>Reads and stores the columns of a (p)DOS file in a dictionary sorted by ascending order of angular momentum <span class="math notranslate nohighlight">\(l\)</span> and ascending order of <span class="math notranslate nohighlight">\(m\)</span>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.locate_pdos_files">
+<span class="sig-name descname"><span class="pre">locate_pdos_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.locate_pdos_files" title="Link to this definition"></a></dt>
+<dd><p>Gets the paths to all PDOS files of the right type and stores it in a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of all paths to PDOS files given the mode.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list[str]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.process_block">
+<span class="sig-name descname"><span class="pre">process_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.process_block" title="Link to this definition"></a></dt>
+<dd><p>Extracts blocks, which are separated by <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> on its own newline, for data processing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.process_headers">
+<span class="sig-name descname"><span class="pre">process_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.process_headers" title="Link to this definition"></a></dt>
+<dd><p>Processes lines in PDOS output files starting with #</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – line</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.read_dos_file">
+<span class="sig-name descname"><span class="pre">read_dos_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.read_dos_file" title="Link to this definition"></a></dt>
+<dd><p>Reads in a DOS.dat.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.read_pdos_file">
+<span class="sig-name descname"><span class="pre">read_pdos_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.read_pdos_file" title="Link to this definition"></a></dt>
+<dd><p>Reads in the PDOS data of a file corresponding to an atom.</p>
+<p>CONQUEST outputs pdos filenames of the form <code class="docutils literal notranslate"><span class="pre">AtomNNNNNNNDOS_lm.dat</span></code> or <code class="docutils literal notranslate"><span class="pre">AtomNNNNNNNDOS_l.dat</span></code>
+where NNNNNNN is a zero-padded atom number (as ordered in the coordinates file). This method is modified by the children <code class="xref py py-class docutils literal notranslate"><span class="pre">pdos_l_processor</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">pdos_lm_processor</span></code> for their purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>atom</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – The atom to find and read in the PDOS for.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the atom chosen does not have a PDOS file associated to it.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.pdos.pdos.resolve_path">
+<span class="sig-name descname"><span class="pre">resolve_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="headerlink" href="#conquest2a.pdos.pdos.resolve_path" title="Link to this definition"></a></dt>
+<dd><p>Checks whether the directory containing files exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>FileNotFoundError</strong> – Raises error if directory does not exist</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path to the directory</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="conquest.html" class="btn btn-neutral float-left" title="General Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="band.html" class="btn btn-neutral float-right" title="Band structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, chpxu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

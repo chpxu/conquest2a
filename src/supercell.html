@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transforms and supercells &mdash; CONQUEST2a 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e259d695"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Densities" href="density.html" />
+    <link rel="prev" title="Band structure" href="band.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CONQUEST2a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conquest.html">General Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdos.html">PDOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="band.html">Band structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Transforms and supercells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-usage">Example Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conquest2a.cell.supercell">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.cell.supercell.supercell"><code class="docutils literal notranslate"><span class="pre">supercell</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.cell.supercell.supercell.create_supercell"><code class="docutils literal notranslate"><span class="pre">supercell.create_supercell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.cell.supercell.supercell.new_num_atoms"><code class="docutils literal notranslate"><span class="pre">supercell.new_num_atoms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.cell.supercell.supercell.scale_lattice_vectors"><code class="docutils literal notranslate"><span class="pre">supercell.scale_lattice_vectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.cell.transform.transform_unit_cell"><code class="docutils literal notranslate"><span class="pre">transform_unit_cell</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.cell.transform.transform_unit_cell.transform"><code class="docutils literal notranslate"><span class="pre">transform_unit_cell.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="density.html">Densities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#module-conquest2a.density">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">File I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CONQUEST2a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Transforms and supercells</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/supercell.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="transforms-and-supercells">
+<h1>Transforms and supercells<a class="headerlink" href="#transforms-and-supercells" title="Link to this heading"></a></h1>
+<p>C2a can handle transforming unit cells like in VESTA, with the important feature of being able to preserve species numbers. In CONQUEST, elements with different spins are given their own species, e.g. species 1 could be Mn (up) and species 2 could be Mn (down). Thus, creating and transforming cells with spin patterns is now trivial.</p>
+<p>In VESTA, you can give atoms vectors. Transforming a unit cell preserves symmetry and thus the arrows (by choosing “equivalent sites”). However, once the symmetry is removed, the vectors are not maintained (understandably so). Since VESTA has no knowledge of “species” when outputting unit cells, it has no notion that a set of atoms are meant to have particular spins, and that spins are mapped to species. For small cells this isn’t an issue, you could set atoms to different elements temporarily and manually edit the coordinates file afterwards, but for large cells this is unfeasible and a time waste, which is where this module aims to fill the gap as CONQUEST is designed for large-scale simulations.</p>
+<section id="example-usage">
+<h2>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>In this section, we demonstrate use of the <code class="xref py py-class docutils literal notranslate"><span class="pre">transform_unit_cell</span></code> class. The following snippet is modified from the unit tests of this module.</p>
+<p>The following code block will transform an 80-atom supercell with a spin pattern onto the symmetry-equivalent 40-atom unit cell.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.conquest</span> <span class="kn">import</span> <span class="n">conquest_species</span><span class="p">,</span> <span class="n">conquest_coordinates</span>
+<span class="kn">from</span> <span class="nn">conquest2a.cell.transform</span> <span class="kn">import</span> <span class="n">transform_unit_cell</span>
+<span class="kn">from</span> <span class="nn">conquest2a.io</span> <span class="kn">import</span> <span class="n">read_coords</span><span class="p">,</span> <span class="n">write_coords</span> <span class="c1"># To read and write coordinate files</span>
+
+<span class="n">run_dir</span> <span class="o">=</span> <span class="s2">&quot;path/to/directory&quot;</span>
+<span class="n">input_cell</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">/unitcell.dat&quot;</span> <span class="c1"># Cell to apply transform to</span>
+<span class="n">final_cell_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">/expected_transformed_cell.dat&quot;</span> <span class="c1"># File to write new unit cell to</span>
+
+<span class="c1"># Always define your species</span>
+<span class="n">BMO</span> <span class="o">=</span> <span class="n">conquest_species</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Bi&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Mn&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Mn&quot;</span><span class="p">})</span>
+<span class="c1"># Transformation matrix, same convention as VESTA</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="c1"># conquest_coordinates instance of input file</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">read_coords</span><span class="p">(</span><span class="n">input_cell</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="s2">&quot;cq&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">coords</span>
+<span class="n">transformer</span> <span class="o">=</span> <span class="n">transform_unit_cell</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<span class="c1"># Apply transform</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="c1"># Access new conquest_coordinates instance of your transformed cell, including correct species!</span>
+<span class="n">new_cell</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">transformed_cell_coords</span>
+
+<span class="c1"># Write new_cell into CONQUEST coordinates format</span>
+<span class="n">write_coords</span><span class="p">(</span><span class="n">final_cell_file</span><span class="p">,</span> <span class="n">new_cell</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;cq&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To instead make a supercell, use the <code class="xref py py-class docutils literal notranslate"><span class="pre">supercell</span></code> class or just use the <code class="xref py py-class docutils literal notranslate"><span class="pre">transform</span></code> with a supercell matrix. The former is demonstrated below:</p>
+</section>
+<section id="module-conquest2a.cell.supercell">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-conquest2a.cell.supercell" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.cell.supercell.supercell">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.cell.supercell.</span></span><span class="sig-name descname"><span class="pre">supercell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repeats_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeats_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeats_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orig_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><span class="pre">conquest_coordinates</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.cell.supercell.supercell" title="Link to this definition"></a></dt>
+<dd><p>Class to produce supercells. CONQUEST deals with orthorhombic cells only. The resulting supercell will therefore be orthorhombic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repeats_x</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Number of repeats along the <span class="math notranslate nohighlight">\(a\)</span> lattice vector</p></li>
+<li><p><strong>repeats_y</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Number of repeats along the <span class="math notranslate nohighlight">\(b\)</span> lattice vector</p></li>
+<li><p><strong>repeats_z</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Number of repeats along the <span class="math notranslate nohighlight">\(c\)</span> lattice vector</p></li>
+<li><p><strong>coords_proc</strong> (<a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><em>conquest_coordinates</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If any of the <code class="docutils literal notranslate"><span class="pre">repeats_*</span></code> is not a positive integer</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.cell.supercell.supercell.create_supercell">
+<span class="sig-name descname"><span class="pre">create_supercell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.cell.supercell.supercell.create_supercell" title="Link to this definition"></a></dt>
+<dd><p>This method creates the <code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code> s of the new supercell, looping through the original atoms, creating new ones corresponding to the repeats in each direction.</p>
+<p>In terms of fractional coordinates, we set new coords of the original atoms to be
+<span class="math notranslate nohighlight">\(x' = x/N_x, y' = y/N_y, z' = z/N_z\)</span></p>
+<p>We then take these new coordinates, and create new atoms of the same elements,
+with coords <span class="math notranslate nohighlight">\((x', y', z')\)</span> for every <code class="docutils literal notranslate"><span class="pre">repeats_x,y,z</span></code> respectively.
+i.e. we add <span class="math notranslate nohighlight">\(1/N_x, 1/N_y, 1/N_z\)</span> in the appropriate direction.</p>
+<p>Example:
+Consider a bcc crystal defined by A: (0,0,0) and B: (1/2, 1/2, 1/2).
+Suppose we want to make a 3x2x2 supercell: expect 24 atoms in the final cell.
+i.e. duplicate 3 in the “a” direction, twice in the other 2 directions.
+We first rescale the lattice parameters, then we rescale the fractional coordinates</p>
+<p>(0,0,0) is trivial, but B gets rescaled to (1/2 * 1/3, 1/2 * 1/2, 1/2 * 1/2)
+= (1/6, 1/4, 1/4)</p>
+<p>However, the original (0,0,0) now has duplicates in x,y,z,
+namely the new atoms at (0,0,0) + {(1/3, 0, 0), (0, 1/2, 0), (0,0,1/2), …}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.cell.supercell.supercell.new_num_atoms">
+<span class="sig-name descname"><span class="pre">new_num_atoms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#conquest2a.cell.supercell.supercell.new_num_atoms" title="Link to this definition"></a></dt>
+<dd><p>Gets the number of atoms in the new supercell. Needed for the coordinates file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of atoms in the new supercell</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.cell.supercell.supercell.scale_lattice_vectors">
+<span class="sig-name descname"><span class="pre">scale_lattice_vectors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.cell.supercell.supercell.scale_lattice_vectors" title="Link to this definition"></a></dt>
+<dd><p>Produce the supercell’s lattice vectors based on the repeats supplied.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-conquest2a.cell.transform">
+<dt class="sig sig-object py" id="conquest2a.cell.transform.transform_unit_cell">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.cell.transform.</span></span><span class="sig-name descname"><span class="pre">transform_unit_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cq_coordinates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><span class="pre">conquest_coordinates</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.cell.transform.transform_unit_cell" title="Link to this definition"></a></dt>
+<dd><p>Class to handle unit cell transformations like VESTA.</p>
+<p>In VESTA, vectors on atoms are maintained if you have symmetry. If you remove the symmetry,
+the vectors are not kept. This class aims to reproduce the transformations of VESTA, but since
+atom labels, species numbers, spin and force arrays are not touched, this should preserve
+the spin and species labels, so a transformed unit cell can be immediately dumped with a writer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cq_coordinates</strong> (<a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><em>conquest_coordinates</em></a>) – <code class="docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance  of the cell to be transformed</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>optional</em>) – numerical tolerance used when wrapping/deduplicating atoms, defaults to 1e-4</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.cell.transform.transform_unit_cell.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">float64</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dedupe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><span class="pre">conquest_coordinates</span></a></span></span><a class="headerlink" href="#conquest2a.cell.transform.transform_unit_cell.transform" title="Link to this definition"></a></dt>
+<dd><p>Method to transform the unit cell using VESTA convention:</p>
+<p>The new basis vectors <span class="math notranslate nohighlight">\(\mathrm{a}^{\prime}, \mathrm{b}^{\prime}, \mathrm{c}^{\prime}\)</span> are related to the basis vectors <span class="math notranslate nohighlight">\(\mathrm{a}, \mathrm{b}, \mathrm{c}\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\left(\boldsymbol{a}^{\prime}, \boldsymbol{b}^{\prime}, \boldsymbol{c}^{\prime}\right)= &amp; (\boldsymbol{a}, \boldsymbol{b}, \boldsymbol{c}) \boldsymbol{P} \\
+= &amp; (\boldsymbol{a}, \boldsymbol{b}, \boldsymbol{c})\left(\begin{array}{lll}
+P_{11} &amp; P_{12} &amp; P_{13} \\
+P_{21} &amp; P_{22} &amp; P_{23} \\
+P_{31} &amp; P_{32} &amp; P_{33}
+\end{array}\right) \\
+= &amp; \left(P_{11} \boldsymbol{a}+P_{21} \boldsymbol{b}+P_{31} \boldsymbol{c},\right. \\
+&amp; P_{12} \boldsymbol{a}+P_{22} \boldsymbol{b}+P_{32} \boldsymbol{c}, \\
+&amp; \left.P_{13} \boldsymbol{a}+P_{23} \boldsymbol{b}+P_{33} \boldsymbol{c}\right)
+\end{aligned}\end{split}\]</div>
+<p>Note, the original <code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code> in the original unit cell are deep copied to the new coordinates instance.
+The only property that is modified in the new Atoms is the fractional coordinate, and then cartesian coordinates
+This means atom numbers stay the same instead of being regenerated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P</strong> (<em>c2at.REAL_ARRAY</em>) – Unit cell transformation matrix</p></li>
+<li><p><strong>dedupe</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to remove duplicate atoms and wrap atoms into new unit cell lengths, defaults to <cite>True</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New <code class="docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance with new <code class="docutils literal notranslate"><span class="pre">Atom</span></code> s and lattice vectors</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates">conquest_coordinates</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="band.html" class="btn btn-neutral float-left" title="Band structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="density.html" class="btn btn-neutral float-right" title="Densities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, chpxu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

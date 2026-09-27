@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File I/O &mdash; CONQUEST2a 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e259d695"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Roadmap" href="roadmap.html" />
+    <link rel="prev" title="Densities" href="density.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CONQUEST2a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conquest.html">General Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdos.html">PDOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="band.html">Band structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supercell.html">Transforms and supercells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html">Densities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#module-conquest2a.density">API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File I/O</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-usage">Example usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conquest2a.io">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.io.read_coords"><code class="docutils literal notranslate"><span class="pre">read_coords</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.read_coords.read"><code class="docutils literal notranslate"><span class="pre">read_coords.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.read_coords.read_cell"><code class="docutils literal notranslate"><span class="pre">read_coords.read_cell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.read_coords.read_conquest"><code class="docutils literal notranslate"><span class="pre">read_coords.read_conquest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.read_coords.read_poscar"><code class="docutils literal notranslate"><span class="pre">read_coords.read_poscar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.io.write_coords"><code class="docutils literal notranslate"><span class="pre">write_coords</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.create_atoms_str"><code class="docutils literal notranslate"><span class="pre">write_coords.create_atoms_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write"><code class="docutils literal notranslate"><span class="pre">write_coords.write()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write_conquest"><code class="docutils literal notranslate"><span class="pre">write_coords.write_conquest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write_extxyz"><code class="docutils literal notranslate"><span class="pre">write_coords.write_extxyz()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write_vasp"><code class="docutils literal notranslate"><span class="pre">write_coords.write_vasp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write_xsf"><code class="docutils literal notranslate"><span class="pre">write_coords.write_xsf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.io.write_coords.write_xyz"><code class="docutils literal notranslate"><span class="pre">write_coords.write_xyz()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CONQUEST2a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File I/O</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/io.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-i-o">
+<h1>File I/O<a class="headerlink" href="#file-i-o" title="Link to this heading"></a></h1>
+<p>Coordinate file conversion to and from the CONQUEST coordinate file is handled by the <cite>io.write_coords</cite> and <cite>io.read_coords</cite></p>
+<section id="example-usage">
+<h2>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>First, define <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_species</span></code>, e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.conquest</span> <span class="kn">import</span> <span class="n">conquest_species</span><span class="p">,</span> <span class="n">conquest_coordinates</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">conquest_species</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Then, assuming you have a completely filled out <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance, you can just write immediately:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.io</span> <span class="kn">import</span> <span class="n">write_coords</span>
+<span class="n">cq</span> <span class="o">=</span> <span class="n">write_coords</span><span class="p">(</span><span class="s2">&quot;dest_file.cell&quot;</span><span class="p">,</span> <span class="n">cs</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;cell&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check the API below. Writing supports <code class="docutils literal notranslate"><span class="pre">cell</span></code>, <code class="docutils literal notranslate"><span class="pre">vasp</span></code> (POSCAR), <code class="docutils literal notranslate"><span class="pre">xsf</span></code> (including additional vector quantities), <code class="docutils literal notranslate"><span class="pre">ext/xyz</span></code> as well as writing out a CONQUEST coordinates file (default extension is <code class="docutils literal notranslate"><span class="pre">.dat</span></code>).</p>
+<p>If you instead want to _read_ in a coordinate file,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.io</span> <span class="kn">import</span> <span class="n">read_coords</span>
+<span class="n">cq</span> <span class="o">=</span> <span class="n">read_coords</span><span class="p">(</span><span class="s2">&quot;read_file.cell&quot;</span><span class="p">,</span> <span class="n">cs</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;cell&quot;</span><span class="p">)</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">cq</span><span class="o">.</span><span class="n">coords</span> <span class="c1"># Now you can use this to do whatever</span>
+</pre></div>
+</div>
+<p>This will now expose a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance for you to use. Currently supports reading CONQUEST files, <code class="docutils literal notranslate"><span class="pre">cell</span></code> and POSCAR <code class="docutils literal notranslate"><span class="pre">.vasp</span></code> files.</p>
+</section>
+<section id="module-conquest2a.io">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-conquest2a.io" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.io.read_coords">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.io.</span></span><span class="sig-name descname"><span class="pre">read_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">conquest_species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'vasp'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cell'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cq'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cq_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'bohr'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ang'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bohr'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.io.read_coords" title="Link to this definition"></a></dt>
+<dd><p>Class to read external coordinates data and store them in a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to file to read</p></li>
+<li><p><strong>species</strong> (<em>conquest_species</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_species</span></code> instance</p></li>
+<li><p><strong>format</strong> (<em>Literal</em><em>[</em><em>&quot;vasp&quot;</em><em>, </em><em>&quot;cell&quot;</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – File format, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> in which case it will infer from the file extension of <code class="docutils literal notranslate"><span class="pre">path</span></code></p></li>
+<li><p><strong>encoding</strong> (<em>str</em><em>, </em><em>optional</em>) – File encoding, defaults to “utf-8”</p></li>
+<li><p><strong>cq_units</strong> (<em>Literal</em><em>[</em><em>&quot;bohr&quot;</em><em>, </em><em>&quot;ang&quot;</em><em>]</em><em>, </em><em>optional</em>) – Units to use in <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code>, defaults to “bohr”. <cite>vasp</cite> is assumed to be read entirely in angstroms.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.read_coords.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.read_coords.read" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function to read file based off <code class="docutils literal notranslate"><span class="pre">self.format</span></code>.
+:raises ValueError: If <code class="docutils literal notranslate"><span class="pre">self.format</span></code> is unsupported.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.read_coords.read_cell">
+<span class="sig-name descname"><span class="pre">read_cell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.read_coords.read_cell" title="Link to this definition"></a></dt>
+<dd><p>Parse a CASTEP cell file completely and fill out a <code class="docutils literal notranslate"><span class="pre">conquest_coordinate</span></code> instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>KeyError</strong> – If neither lattice_cart nor lattice_abc are in the cell file</p></li>
+<li><p><strong>KeyError</strong> – If neither position_cart nor position_abs are in the cell file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.read_coords.read_conquest">
+<span class="sig-name descname"><span class="pre">read_conquest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.read_coords.read_conquest" title="Link to this definition"></a></dt>
+<dd><p>This method reads a CONQUEST coordinate file.</p>
+<dl class="simple">
+<dt>CONQUEST coords file split into 3 main chunks:</dt><dd><ul class="simple">
+<li><p>first 3 lines are lattice vectors</p></li>
+<li><p>fourth line is the total number of atoms in the unit cell</p></li>
+<li><dl class="simple">
+<dt>the following lines describe each atom and look like</dt><dd><p>&lt;double&gt; &lt;double&gt; &lt;double&gt; &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt;</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.read_coords.read_poscar">
+<span class="sig-name descname"><span class="pre">read_poscar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.read_coords.read_poscar" title="Link to this definition"></a></dt>
+<dd><p>Method which reads a POSCAR file extracting only what is needed to make a CONQUEST coordinates instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the number of scaling factors is incorrect</p></li>
+<li><p><strong>NotImplementedError</strong> – Negative scale factors</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.io.</span></span><span class="sig-name descname"><span class="pre">write_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cq_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><span class="pre">conquest_coordinates</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'cq'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'vasp'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cell'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'xyz'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'extxyz'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'xsf'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'bohr'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'ang'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_spin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.io.write_coords" title="Link to this definition"></a></dt>
+<dd><p>Class to convert data held in a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance into various coordinate file formats: xsf, cell, vasp, xyz and extxyz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> (<em>str</em>) – Path to output file.</p></li>
+<li><p><strong>cq_coords</strong> (<a class="reference internal" href="conquest.html#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><em>conquest_coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance with data</p></li>
+<li><p><strong>format</strong> (<em>Literal</em><em>[</em><em>&quot;cq&quot;</em><em>,</em><em>&quot;vasp&quot;</em><em>,</em><em>&quot;cell&quot;</em><em>,</em><em>&quot;xyz&quot;</em><em>,</em><em>&quot;extxyz&quot;</em><em>, </em><em>&quot;xsf&quot;</em><em>]</em>) – Type of coordinate file to write</p></li>
+<li><p><strong>precision</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places, defaults to 10</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – File IO mode, defaults to “w”</p></li>
+<li><p><strong>encoding</strong> (<em>str</em><em>, </em><em>optional</em>) – File encoding, defaults to “utf-8”</p></li>
+<li><p><strong>convert_to</strong> (<em>Literal</em><em>[</em><em>&quot;bohr&quot;</em><em>, </em><em>&quot;ang&quot;</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Whether to convert lattice parameters and cartesian coordinates to specified units, defaults to None (data is preserved as-is)</p></li>
+<li><p><strong>comment_line</strong> (<em>str</em><em>, </em><em>optional</em>) – What unit factor to target, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> (content written as-is)</p></li>
+<li><p><strong>time</strong> (<em>float</em><em>, </em><em>optional</em>) – Animation time (extxyz only), defaults to 0.0</p></li>
+<li><p><strong>write_spin</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to write out <code class="docutils literal notranslate"><span class="pre">atom.spins</span></code> (XSF only, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">write_force</span></code>), defaults to False</p></li>
+<li><p><strong>write_force</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to write out <code class="docutils literal notranslate"><span class="pre">atom.force</span></code> (XSF only, mutually exclusive with <code class="docutils literal notranslate"><span class="pre">write_spin</span></code>), defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If write_force and write_spin are True, error out.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.create_atoms_str">
+<span class="sig-name descname"><span class="pre">create_atoms_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.create_atoms_str" title="Link to this definition"></a></dt>
+<dd><p>Creates a line for an atom, for the XYZ file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Components of the line to write: the element and the numbers</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write" title="Link to this definition"></a></dt>
+<dd><p>Wrapper function to write file based off <code class="docutils literal notranslate"><span class="pre">self.format</span></code>.
+:raises ValueError: If <code class="docutils literal notranslate"><span class="pre">self.format</span></code> is unsupported.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write_conquest">
+<span class="sig-name descname"><span class="pre">write_conquest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write_conquest" title="Link to this definition"></a></dt>
+<dd><p>Method to write a CONQUEST coordinates file given a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write_extxyz">
+<span class="sig-name descname"><span class="pre">write_extxyz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write_extxyz" title="Link to this definition"></a></dt>
+<dd><p>Method to write a <code class="docutils literal notranslate"><span class="pre">.extxyz</span></code> for a basic XYZ file given a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance.</p>
+<p>The main advantage of <cite>.extxyz</cite> is the ability to specify columns and the time, which is very useful for animations. I recommend just using CONQUEST’s ability to output <code class="docutils literal notranslate"><span class="pre">.extxyz</span></code> files at different timesteps however.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write_vasp">
+<span class="sig-name descname"><span class="pre">write_vasp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write_vasp" title="Link to this definition"></a></dt>
+<dd><p>Method to write a basic VASP POSCAR file given a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Path to write the new coordinates file.</p></li>
+<li><p><strong>data</strong> (<code class="docutils literal notranslate"><span class="pre">conquest_coordinates</span></code>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest.conquest_coordinates</span></code> instance to write.</p></li>
+<li><p><strong>encoding</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>, optional) – File encoding, defaults to “utf-8”</p></li>
+<li><p><strong>is_angstrom</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Whether the data in <code class="docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> is already in angstroms instead of Bohrs, defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write_xsf">
+<span class="sig-name descname"><span class="pre">write_xsf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write_xsf" title="Link to this definition"></a></dt>
+<dd><p>Method to write an XSF file optionally with a vector attached to each atom</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.io.write_coords.write_xyz">
+<span class="sig-name descname"><span class="pre">write_xyz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.io.write_coords.write_xyz" title="Link to this definition"></a></dt>
+<dd><p>Method to write a <code class="docutils literal notranslate"><span class="pre">.xyz</span></code> for a basic XYZ file given a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code> instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="density.html" class="btn btn-neutral float-left" title="Densities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="roadmap.html" class="btn btn-neutral float-right" title="Roadmap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, chpxu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

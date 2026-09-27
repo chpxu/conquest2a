@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Classes &mdash; CONQUEST2a 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e259d695"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PDOS" href="pdos.html" />
+    <link rel="prev" title="Types" href="types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CONQUEST2a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">General Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-usage">Example usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-conquest2a.conquest">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.conquest.Atom"><code class="docutils literal notranslate"><span class="pre">Atom</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.Atom.reset_symmetry"><code class="docutils literal notranslate"><span class="pre">Atom.reset_symmetry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.Atom.to_ase"><code class="docutils literal notranslate"><span class="pre">Atom.to_ase()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.conquest.atom_charge"><code class="docutils literal notranslate"><span class="pre">atom_charge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.atom_charge.assign_atom_charge"><code class="docutils literal notranslate"><span class="pre">atom_charge.assign_atom_charge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.atom_charge.open_file"><code class="docutils literal notranslate"><span class="pre">atom_charge.open_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.conquest.block_processor"><code class="docutils literal notranslate"><span class="pre">block_processor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.block_processor.process_block"><code class="docutils literal notranslate"><span class="pre">block_processor.process_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.block_processor.process_headers"><code class="docutils literal notranslate"><span class="pre">block_processor.process_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.block_processor.read_file"><code class="docutils literal notranslate"><span class="pre">block_processor.read_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.assign_atom_labels"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.assign_atom_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.get_cartesian_positions"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.get_cartesian_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.index_to_atom_map"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.index_to_atom_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.number_of_elements"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.number_of_elements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.reset_symmetry"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.reset_symmetry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates.reset_symmetry_site"><code class="docutils literal notranslate"><span class="pre">conquest_coordinates.reset_symmetry_site()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pdos.html">PDOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="band.html">Band structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supercell.html">Transforms and supercells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html">Densities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="density.html#module-conquest2a.density">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">File I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CONQUEST2a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">General Classes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/conquest.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-classes">
+<h1>General Classes<a class="headerlink" href="#general-classes" title="Link to this heading"></a></h1>
+<p>The classes under the <cite>conquest</cite> module are used across the library, and are often required to be initialised and passed as arguments to other classes.</p>
+<section id="example-usage">
+<h2>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>The most important class in this library is <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code>. It is a full Python class which holds information about a CONQUEST coordinates file. It requires a <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_species</span></code> to initialise it, which maps CONQUEST species numbers to real elements.</p>
+<p>Suppose you have a spin-polarised KCuF<sub>3</sub> system with a spin up and down Cu atoms. You might do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.conquest</span> <span class="kn">import</span> <span class="n">conquest_species</span><span class="p">,</span> <span class="n">conquest_coordinates</span>
+
+<span class="n">kcuf3</span> <span class="o">=</span> <span class="n">conquest_species</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">})</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">conquest_coordinates</span><span class="p">(</span><span class="s2">&quot;coords.dat&quot;</span><span class="p">,</span> <span class="n">kcuf3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the variable <code class="docutils literal notranslate"><span class="pre">coords</span></code> contains:
+- <code class="docutils literal notranslate"><span class="pre">coords.atoms</span></code>: list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code>, in the order of their appearance in <code class="docutils literal notranslate"><span class="pre">coords.dat</span></code>
+- <code class="docutils literal notranslate"><span class="pre">coords.element_map</span></code>: a <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">list[Atom]]</span></code> where each key is an element label whose value is all the atoms with that element label
+- <code class="docutils literal notranslate"><span class="pre">coords.lattice_vectors</span></code>: a NumPy array of lattice vectors. Does not factor in units (you should check if you need angstroms or bohr units. CONQUEST assumes bohr by default).</p>
+<p>There is also the <code class="xref py py-class docutils literal notranslate"><span class="pre">atom_charge</span></code> class, which uses the <code class="docutils literal notranslate"><span class="pre">AtomCharge.dat</span></code> file to calculate spin <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">-</span> <span class="pre">dn</span></code> for each atom and then assigns it to the <code class="docutils literal notranslate"><span class="pre">Atom.spins</span></code> array.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conquest2a.conquest</span> <span class="kn">import</span> <span class="n">conquest_species</span><span class="p">,</span> <span class="n">conquest_coordinates</span><span class="p">,</span> <span class="n">atom_charge</span>
+
+<span class="n">kcuf3</span> <span class="o">=</span> <span class="n">conquest_species</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Cu&quot;</span><span class="p">})</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">conquest_coordinates</span><span class="p">(</span><span class="s2">&quot;coords.dat&quot;</span><span class="p">,</span> <span class="n">kcuf3</span><span class="p">)</span>
+<span class="n">atom_charge</span><span class="p">(</span><span class="s2">&quot;AtomCharge.dat&quot;</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span> <span class="c1"># Mutates atom.spin for atom in coords.atoms</span>
+</pre></div>
+</div>
+<p>The other classes are utility classes for other types of CONQUEST pre/post-processing. <code class="docutils literal notranslate"><span class="pre">block_processor</span></code> is a generic class to inherit from to parse files which separate blocks of data by the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> character - isolated on its own line - as is for spin-polarised CONQUEST output like pDOS and band structures. <code class="docutils literal notranslate"><span class="pre">processor_base</span></code> is another generic class to inherit from for any generic data processing from files.</p>
+</section>
+<section id="module-conquest2a.conquest">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-conquest2a.conquest" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.conquest.Atom">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.conquest.</span></span><span class="sig-name descname"><span class="pre">Atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">species:</span> <span class="pre">int,</span> <span class="pre">coords:</span> <span class="pre">~numpy._typing._array_like.NDArray[~numpy.float64],</span> <span class="pre">can_move:</span> <span class="pre">~collections.abc.Sequence[str],</span> <span class="pre">number:</span> <span class="pre">int,</span> <span class="pre">label:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">cart_coords:</span> <span class="pre">~numpy._typing._array_like.NDArray[~numpy.float64]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">forces:</span> <span class="pre">~numpy._typing._array_like.NDArray[~numpy.float64]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">spins:</span> <span class="pre">~numpy._typing._array_like.NDArray[~numpy.float64]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">symmetry_number:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.conquest.Atom" title="Link to this definition"></a></dt>
+<dd><p>Class which holds Atom data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>species</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – The integer referring to the species as defined in the <code class="docutils literal notranslate"><span class="pre">Conquest_input</span></code> file.</p></li>
+<li><p><strong>coords</strong> (<a class="reference internal" href="types.html#types"><span class="std std-ref">REAL ARRAY</span></a>) – Fractional coordinates of the atom in the interval <span class="math notranslate nohighlight">\([0,1)\)</span>. Numbers outside this range are wrapped back into the range.</p></li>
+<li><p><strong>can_move</strong> (<code class="docutils literal notranslate"><span class="pre">Sequence[str]</span></code> - list of ‘T’ or ‘F’.) – Whether the atom is allowed to move in each Cartesian axis.</p></li>
+<li><p><strong>number</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – The atom number, i.e. its position in the coordinates file.</p></li>
+<li><p><strong>label</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – The atom element</p></li>
+<li><p><strong>cart_coords</strong> (<a class="reference internal" href="types.html#types"><span class="std std-ref">REAL ARRAY</span></a>) – Cartesian coordinates of the atom.</p></li>
+<li><p><strong>forces</strong> (<a class="reference internal" href="types.html#types"><span class="std std-ref">REAL ARRAY</span></a>) – Force vector of the atom, defaults to <code class="docutils literal notranslate"><span class="pre">np.array([0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0])</span></code>.</p></li>
+<li><p><strong>spins</strong> (<a class="reference internal" href="types.html#types"><span class="std std-ref">REAL ARRAY</span></a>) – Spin moment on the atom,  defaults to <code class="docutils literal notranslate"><span class="pre">np.array([0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0])</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.Atom.reset_symmetry">
+<span class="sig-name descname"><span class="pre">reset_symmetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.Atom.reset_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Resets <code class="docutils literal notranslate"><span class="pre">self.symmetry_number</span></code> back to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.Atom.to_ase">
+<span class="sig-name descname"><span class="pre">to_ase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atom</span></span></span><a class="headerlink" href="#conquest2a.conquest.Atom.to_ase" title="Link to this definition"></a></dt>
+<dd><p>Method to return an equivalent ASE <code class="docutils literal notranslate"><span class="pre">`Atom</span></code> &lt;<a class="reference external" href="https://ase-lib.org/ase/atom.html">https://ase-lib.org/ase/atom.html</a>&gt;`__.
+The <code class="docutils literal notranslate"><span class="pre">spins</span></code> field is set to the <code class="docutils literal notranslate"><span class="pre">Atom.magmom</span></code> whilst the <code class="docutils literal notranslate"><span class="pre">forces</span></code> field is set to <code class="docutils literal notranslate"><span class="pre">Atom.momentum</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ase.Atom: Equivalent ASE <code class="docutils literal notranslate"><span class="pre">Atom</span></code> object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ase.Atom</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.conquest.atom_charge">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.conquest.</span></span><span class="sig-name descname"><span class="pre">atom_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_charge_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><span class="pre">conquest_coordinates</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.conquest.atom_charge" title="Link to this definition"></a></dt>
+<dd><p>Class to process AtomCharge.dat from CONQUEST output files.</p>
+<p>It is assumed each row of AtomCharge.dat is arranged such that it is equivalent to the
+same CONQUEST input coordinates file.</p>
+<p>In particular, make use of the <a class="reference internal" href="#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code></a> class to contain the list of Atoms</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coordinates</strong> (<a class="reference internal" href="#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code></a>) – The <a class="reference internal" href="#conquest2a.conquest.conquest_coordinates" title="conquest2a.conquest.conquest_coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_coordinates</span></code></a> instance to use</p></li>
+<li><p><strong>atom_charge_path</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Path to the <code class="docutils literal notranslate"><span class="pre">AtomCharge.dat</span></code> file.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.atom_charge.assign_atom_charge">
+<span class="sig-name descname"><span class="pre">assign_atom_charge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.atom_charge.assign_atom_charge" title="Link to this definition"></a></dt>
+<dd><p>Assign each Atom its spin values from the AtomCharge.dat file: up - down</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.atom_charge.open_file">
+<span class="sig-name descname"><span class="pre">open_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.atom_charge.open_file" title="Link to this definition"></a></dt>
+<dd><p>Reads in the AtomCharge.dat
+Format of the file is 3 columns: total, spin up spin down
+CONQUEST only deals with collinear spins</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.conquest.block_processor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.conquest.</span></span><span class="sig-name descname"><span class="pre">block_processor</span></span><a class="headerlink" href="#conquest2a.conquest.block_processor" title="Link to this definition"></a></dt>
+<dd><p>Generic class to process CONQUEST output files which are split into blocks via <cite>&amp;</cite></p>
+<p>Sometimes these blocks are categorised by spins and have comments
+# at the start of the section</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.block_processor.process_block">
+<span class="sig-name descname"><span class="pre">process_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.block_processor.process_block" title="Link to this definition"></a></dt>
+<dd><p>Extracts blocks, which are separated by <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> on its own newline, for data processing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.block_processor.process_headers">
+<span class="sig-name descname"><span class="pre">process_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.block_processor.process_headers" title="Link to this definition"></a></dt>
+<dd><p>This function can be overridden by subclasses to process header lines starting with #
+Bandstructure and DOS/pDOS files have slightly different headers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.block_processor.read_file">
+<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.block_processor.read_file" title="Link to this definition"></a></dt>
+<dd><p>Generic method which calls <a class="reference internal" href="#conquest2a.conquest.block_processor.process_headers" title="conquest2a.conquest.block_processor.process_headers"><code class="xref py py-func docutils literal notranslate"><span class="pre">process_headers()</span></code></a> and <a class="reference internal" href="#conquest2a.conquest.block_processor.process_block" title="conquest2a.conquest.block_processor.process_block"><code class="xref py py-func docutils literal notranslate"><span class="pre">process_block()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Path to file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">conquest2a.conquest.</span></span><span class="sig-name descname"><span class="pre">conquest_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conquest_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">conquest_species</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Class which holds data about the system, including the <a class="reference internal" href="#conquest2a.conquest.Atom" title="conquest2a.conquest.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a> s in the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conquest_input</strong> (<code class="docutils literal notranslate"><span class="pre">conquest_input</span></code>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">conquest_input</span></code> instance.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.assign_atom_labels">
+<span class="sig-name descname"><span class="pre">assign_atom_labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.assign_atom_labels" title="Link to this definition"></a></dt>
+<dd><p>Assign each Atom its label.
+If the <code class="docutils literal notranslate"><span class="pre">conquest_input</span></code> does not define labels for all species, these species labels will be silently skipped.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.get_cartesian_positions">
+<span class="sig-name descname"><span class="pre">get_cartesian_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">NDArray</span><span class="p"><span class="pre">[</span></span><span class="pre">float64</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.get_cartesian_positions" title="Link to this definition"></a></dt>
+<dd><p>Returns the Cartesian position of all the atoms in the system and attaches to its <a class="reference internal" href="#conquest2a.conquest.Atom" title="conquest2a.conquest.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a> field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The 3D vector of the Cartesian position.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="types.html#types"><span class="std std-ref">REAL ARRAY</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.index_to_atom_map">
+<span class="sig-name descname"><span class="pre">index_to_atom_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.index_to_atom_map" title="Link to this definition"></a></dt>
+<dd><p>Form a dictionary with keys an element label, and values a list of all the <a class="reference internal" href="#conquest2a.conquest.Atom" title="conquest2a.conquest.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a> s with that label. External file formats, such as <code class="docutils literal notranslate"><span class="pre">.vasp</span></code>, require a count of the number of atoms per element.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.number_of_elements">
+<span class="sig-name descname"><span class="pre">number_of_elements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.number_of_elements" title="Link to this definition"></a></dt>
+<dd><p>Function to get the number of atoms of each element.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns a dictionary of the number of atoms per element</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.reset_symmetry">
+<span class="sig-name descname"><span class="pre">reset_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.reset_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Set all atoms’ or a specific atom’s symmetry number back to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>atom_number</strong> (<em>int</em><em>, </em><em>optional</em>) – _description_, defaults to 0</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conquest2a.conquest.conquest_coordinates.reset_symmetry_site">
+<span class="sig-name descname"><span class="pre">reset_symmetry_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symmetry_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#conquest2a.conquest.conquest_coordinates.reset_symmetry_site" title="Link to this definition"></a></dt>
+<dd><p>Set all atoms with the same symmetry number back to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symmetry_number</strong> (<em>int</em><em>, </em><em>optional</em>) – _description_, defaults to 0</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="types.html" class="btn btn-neutral float-left" title="Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pdos.html" class="btn btn-neutral float-right" title="PDOS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, chpxu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

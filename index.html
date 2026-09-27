@@ -1,0 +1,145 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONQUEST2a: post-processing utilities for CONQUEST &mdash; CONQUEST2a 0.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Types" href="src/types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            CONQUEST2a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/conquest.html">General Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/pdos.html">PDOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/band.html">Band structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/supercell.html">Transforms and supercells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/density.html">Densities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/density.html#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/density.html#module-conquest2a.density">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io.html">File I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/roadmap.html">Roadmap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">CONQUEST2a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">CONQUEST2a: post-processing utilities for CONQUEST</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conquest2a-post-processing-utilities-for-conquest">
+<h1>CONQUEST2a: post-processing utilities for CONQUEST<a class="headerlink" href="#conquest2a-post-processing-utilities-for-conquest" title="Link to this heading"></a></h1>
+<p>CONQUEST2a (C2a) is a collection of modules providing various post-processing utilities for <a class="reference external" href="https://conquest.readthedocs.io/">CONQUEST</a>. It aims to be simple and flexible, requiring minimal dependencies on CONQUEST-specific input/output files. C2a is currently able to process and plot (partial) density of states, bandstructures, charge densities, band densities; convert from CONQUEST coordinates to other file formats; calculate nearest neighbours, planar and dihedral angles; create, transform and write unit cells; extract stresses, forces, bandgaps from output.</p>
+<p>This library operates independently of CONQUEST’s ASE interface, which is documented here: <a class="reference external" href="https://conquest.readthedocs.io/en/latest/ase-conquest.html">https://conquest.readthedocs.io/en/latest/ase-conquest.html</a>. This library does not manage CONQUEST and only serves to analyse output from runs or prepare coordinates for runs.</p>
+<p>Note: this library explicitly depends on ASE for: units and reading cube files. ASE is listed as an explicit dependency but otherwise you should make sure it is available.</p>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="src/types.html"><span class="doc">Types</span></a></p></li>
+<li><p><a class="reference internal" href="src/conquest.html"><span class="doc">General Classes</span></a></p></li>
+<li><p><a class="reference internal" href="src/pdos.html"><span class="doc">PDOS</span></a></p></li>
+<li><p><a class="reference internal" href="src/band.html"><span class="doc">Band structure</span></a></p></li>
+<li><p><a class="reference internal" href="src/supercell.html"><span class="doc">Transforms and supercells</span></a></p></li>
+<li><p><a class="reference internal" href="src/density.html"><span class="doc">Densities</span></a></p></li>
+<li><p><a class="reference internal" href="src/io.html"><span class="doc">File I/O</span></a></p></li>
+<li><p><a class="reference internal" href="src/roadmap.html"><span class="doc">Roadmap</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Please take a look at the <a class="reference external" href="https://github.com/chpxu/conquest2a">GitHub page</a> for the source code.</p></li>
+<li><p>Suggest features, or report bugs on the <a class="reference external" href="https://github.com/chpxu/conquest2a/issues">GitHub issues</a>. Your feedback and help is greatly appreciated!</p></li>
+</ul>
+</section>
+<section id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Link to this heading"></a></h2>
+<p>CONQUEST2a is available freely under the MIT Licence.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src/types.html" class="btn btn-neutral float-right" title="Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, chpxu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
