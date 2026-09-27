@@ -1,7 +1,7 @@
 Densities
 =========
 
-The classes under the `density` module handle the processing and plotting of charge and band densities. Note that there is no explicit dependence on any of the classes used in C2a, and therefore could be used standalone. However, it only supports *orthorhombic cells*.
+The classes under the `density` module handle the processing and plotting of charge and band densities. Note that there is no explicit dependence on any of the classes used in C2a, and therefore could be used standalone.
 
 The ``density`` class supports the following features:
 
@@ -24,7 +24,7 @@ This example creates a final figure from two different band density instances. E
 
   import matplotlib.pyplot as plt
   import numpy as np
-  from conquest2a.density import density, bandden, plot_densities
+  from conquest2a.density import bandden, plot_densities
 
   # Create figure instance
   fig, (ax_val, ax_cond) = plt.subplots(1, 2, figsize=(8, 5))
@@ -68,6 +68,9 @@ This example creates a final figure from two different band density instances. E
   blah2 = plot_densities(den2, show_atoms=True)
   _,_,im2 = blah2.run("test_cond.png",ax=ax_cond, save=False, thickness=1, shift=(-2.39,4.2), xlabel=r"$[-\frac{3}{4},\frac{1}{2},-\frac{1}{5}][\mathrm{\AA}]$", ylabel=r"$[-1,0,4][\mathrm{\AA}]$", show_ticks=True, show_colorbar=False, atom_symbols=["Mn", "O"], vmax="1.1", window_repeat=2, atom_repeat=1, grid_points=500, xlim=(-3,3),ylim=(-3, 3))
 
+For a more comprehensive example, i.e. the one shown in the README, see the ``examples/plot_band_density.py`` file, it looks like this
+
+.. image:: bandden.svg
 
 API
 ===

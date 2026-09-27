@@ -845,7 +845,7 @@ class plot_density:
 
         t1s, t2s, syms = atom_data
         # Swap t1, t2 as coordinates are inverted from imshow
-        for t1a, t2a, sym in zip(t2s, t1s, syms):
+        for t1a, t2a, sym in zip(t1s, t2s, syms):
             # t1a, t2a = t2a, t1a
             if atom_symbols is not None and sym not in atom_symbols:
                 continue
@@ -991,7 +991,7 @@ class plot_density:
             imshow_args["vmax"] = float(np.max(density_grid)) if vmax is None else vmax
         imshow_args.update(imshow_kwargs)
 
-        im = ax.imshow(density_grid, **imshow_args)
+        im = ax.imshow(density_grid.T, **imshow_args)
         if xlim is not None:
             ax.set_xlim(*xlim)
         if ylim is not None:

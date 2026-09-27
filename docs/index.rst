@@ -55,8 +55,8 @@ Contributing
 - Please take a look at the `GitHub page`_ for the source code.
 - Suggest features, or report bugs on the `GitHub issues`_. Your feedback and help is greatly appreciated!
 
-.. _GitHub issues: https://github.com/chpxu/CONQUEST_TO_VASP/issues
-.. _GitHub page: https://github.com/chpxu/CONQUEST_TO_VASP
+.. _GitHub issues: https://github.com/chpxu/conquest2a/issues
+.. _GitHub page: https://github.com/chpxu/conquest2a
 
 Licence
 -------
