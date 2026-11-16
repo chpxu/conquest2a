@@ -205,6 +205,8 @@ class transform_unit_cell:
         )
         new_cq_coord.lattice_vectors = self._make_triclinic_lattice(*new_params)
         new_cq_coord.index_to_atom_map()
+        for idx, atom in enumerate(new_cq_coord.atoms):
+            atom.number = idx + 1
         self.transformed_cell_coords = new_cq_coord
         self._print_lattice_parameters(*new_params)
         return new_cq_coord
