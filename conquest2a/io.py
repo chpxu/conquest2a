@@ -169,6 +169,7 @@ class write_coords(processor_base):
         self.file.write("%block LATTICE_CART\n")
         self.file.write(f"Bohr\n")
         self.file.write(self._write_2d_array_with_precision(self.data.lattice_vectors))
+        self.file.write("\n")
         self.file.write("%endblock LATTICE_CART\n")
 
         self.file.write("%block POSITIONS_FRAC\n")
