@@ -1,3 +1,14 @@
+# 0.4.1
+
+## Fixes
+
+- Add newline after lattice parameters
+- Re-index atom numbers after cell transform
+
+## Misc
+
+- Remove obsolete information from README.md
+
 # 0.4.0
 
 ## Features

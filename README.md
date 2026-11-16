@@ -20,6 +20,10 @@ If you are attempting to integrate this directly into your Nix devShell, this fl
 
 > Note: if using SciencePlots<2.2.2 use matplotlib 3.10 or earlier.
 
+## Documentation
+
+[https://conquest2a.readthedocs.io](https://conquest-to-vasp.readthedocs.io)
+<!--
 ## Usage
 
 1. [Initialising your input](#initialising-your-input)
@@ -192,6 +196,7 @@ vesta_to_conquest(
 In CONQUEST, to treat species with different spin (i.e. up/down, collinear spin only), the species entries must be duplicated inside the dictionary `species`. This library treats vectors $(0, 0, 1)$ as spin "up" and $(0, 0, -1)$ as spin "down" when inputting from VESTA. Additionally, it will set the lowest index corresponding to a species as spin up, and then spin down, so `5: "Mn", 6: "Mn"` will make species 5 be spin up and species 6 to be spin down, so make sure you check your `Conquest_input` correctly!
 
 Please see the [docs](https://conquest-to-vasp.readthedocs.io/en/latest/index.html) for more information.
+-->
 ## CONTRIBUTING
 
 Thank you for wanting to contribute. I am happy to see open issues or PRs on desired features, particularly pertaining to plotting and post-processing.
