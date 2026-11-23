@@ -4,7 +4,7 @@ version = "0.4.1"
 authors = [{ name = "Chung", email = "dev.chpxu@outlook.com" }]
 description = "A Python utility that deals with some pre- and post-processing functions for the linear scaling DFT program, CONQUEST."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
   "numpy>=2.0.0",
   "scipy>=1.10.0",
@@ -79,7 +79,7 @@ module = ["nest_asyncio.*", "requests.*"]
 
 [tool.black]
 line-length = 100
-target-version = ['py311', 'py312', 'py313', 'py314']
+target-version = ['py310', 'py311', 'py312', 'py313', 'py314', 'py315']
 force-exclude = '''
 (
    ^/.*_pb2\.py$

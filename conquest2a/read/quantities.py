@@ -46,7 +46,7 @@ class read_static_output:
         with open(self.output_file, "r", encoding="utf-8") as file:
             lines = file.readlines()
             start = max(i for i, l in enumerate(lines) if "force:  Atom" in l)
-            self.buffer = deque(lines[max(0, start - 20):])
+            self.buffer = deque(lines[max(0, start - 20) :])
             return self.buffer
 
     def _get_quantity_from_lines(

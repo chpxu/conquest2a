@@ -15,8 +15,8 @@
 
 - Added unit tests for `read.quantities.read_static_output`
 - Remove unneeded test data
-- Re-added basic unit tests for nearest-neighbour, `algo.nn.nearest_neighbours`
-
+- Re-added basic unit tests for nearest-neighbour, `algo.nn.nearest_neighbours
+- Re-add Python 3.10 and introduce support for Python 3.15`
 # 0.4.0
 
 ## Features

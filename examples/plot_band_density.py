@@ -1,4 +1,3 @@
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,6 +7,7 @@ from conquest2a.density import (
     plot_density,
 )  # to process BandStructure.dat
 from conquest2a.conquest import *  # necessary, (1)
+
 conquest_species_map = conquest_species({1: "K", 2: "Cu", 3: "Cu", 4: "F"})
 import scienceplots
 
@@ -91,10 +91,10 @@ _, _, im1 = valence.run(
     normalise=True,
     thickness=1,
     vmax=None,
-    rotation = 40.0,
+    rotation=40.0,
     xlabel=r"$x^\prime  (\mathrm{\AA})$",
     ylabel=r"$z^\prime  (\mathrm{\AA})$",
-    xlim=(-3,3),
+    xlim=(-3, 3),
     ylim=(-3, 3),
     window_repeat=3,
     atom_repeat=2,
@@ -117,7 +117,7 @@ _, _, im2 = conduction.run(
     normalise=True,
     thickness=1,
     shift=(-2.3, 4.2),
-    #auto_orient=True,
+    # auto_orient=True,
     xlabel=r"$y^\prime  (\mathrm{\AA})$",
     ylabel=r"$x^\prime (\mathrm{\AA})$",
     show_ticks=True,
@@ -140,9 +140,7 @@ _, _, im2 = conduction.run(
 ax_val.text(-2.7, 2.5, "(a)")
 ax_cond.text(-2.7, 2.5, "(b)")
 fig.tight_layout(rect=(0, 0.1, 1, 1))  # leave a strip at the bottom for the colorbar
-cax = fig.add_axes(
-    [0.15, 0.06, 0.7, 0.03]
-)  # [left, bottom, width, height] in figure fraction
+cax = fig.add_axes([0.15, 0.06, 0.7, 0.03])  # [left, bottom, width, height] in figure fraction
 cbar = fig.colorbar(im1, cax=cax, orientation="horizontal")
 cbar_label = r"Normalised total band density"
 cbar.set_label(cbar_label, fontsize=12)

@@ -13,7 +13,7 @@ import pytest
 
 from conquest2a.conquest import conquest_species, conquest_coordinates
 from conquest2a.io import read_coords
-from conquest2a.read.quantities import read_static_output  
+from conquest2a.read.quantities import read_static_output
 
 EXAMPLE_OUTPUT = "data/output_static_example.txt"
 EXAMPLE_COORDS = "data/output_example_coords.dat"
@@ -176,10 +176,14 @@ def test_missing_stress_leaves_empty_array(tmp_path, capsys):
 
 
 # --------------------------------------------------------------------------
-# Real output file 
+# Real output file
 # --------------------------------------------------------------------------
-@pytest.mark.skipif(not Path(EXAMPLE_OUTPUT).exists(), reason="data/output_static_example.txt not present")
-@pytest.mark.skipif(not Path(EXAMPLE_COORDS).exists(), reason="data/output_example_coords.dat not present")
+@pytest.mark.skipif(
+    not Path(EXAMPLE_OUTPUT).exists(), reason="data/output_static_example.txt not present"
+)
+@pytest.mark.skipif(
+    not Path(EXAMPLE_COORDS).exists(), reason="data/output_example_coords.dat not present"
+)
 def test_real_output_file():
     spec = conquest_species({1: "Bi", 2: "O", 3: "Mn", 4: "Mn", 5: "Cu"})
     coords = read_coords(EXAMPLE_COORDS, spec, format="cq").coords
@@ -188,9 +192,7 @@ def test_real_output_file():
     assert r.free_energy == pytest.approx(-2243.058015346185584, abs=1e-9)
     assert r.harris_foulkes_energy == pytest.approx(-2243.058008992479245, abs=1e-9)
     assert r.dft_energy == pytest.approx(-2243.058008992488794, abs=1e-9)
-    np.testing.assert_allclose(
-        r.stresses, [-1.65706507, -2.31810410, -1.43000276], atol=1e-8
-    )
+    np.testing.assert_allclose(r.stresses, [-1.65706507, -2.31810410, -1.43000276], atol=1e-8)
     np.testing.assert_allclose(
         coords.atoms[0].forces, [0.0000000112, -0.0000001750, 0.0000001097], atol=1e-12
     )
