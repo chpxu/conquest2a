@@ -4,10 +4,18 @@
 
 - Add newline after lattice parameters
 - Re-index atom numbers after cell transform
-
+- Fix force header silently failing if not found in `read.quantities.read_static_output`
+- Read in whole file instead of making assumptions about file format from the end in `read.quantities.read_static_output`
+ 
 ## Misc
 
 - Remove obsolete information from README.md
+
+## Tests
+
+- Added unit tests for `read.quantities.read_static_output`
+- Remove unneeded test data
+- Re-added basic unit tests for nearest-neighbour, `algo.nn.nearest_neighbours`
 
 # 0.4.0
 

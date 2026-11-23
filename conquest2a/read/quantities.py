@@ -44,15 +44,10 @@ class read_static_output:
 
     def read_last_n_lines(self) -> deque[str]:
         with open(self.output_file, "r", encoding="utf-8") as file:
-            # 25 comes from misc lines + a line for warnings
-            # Then a block is printed for the forces for each atom
-            # And also 2 extra kines for the force header
-            # New line +  3 lines for Harris-Foulkes+DFT+Ground state energies
-            lines = deque(file, maxlen=25 + int(self.coords.natoms) + 5)
-            self.buffer = lines
-            for line in lines:
-                line = line.strip()
-            return lines  #
+            lines = file.readlines()
+            start = max(i for i, l in enumerate(lines) if "force:  Atom" in l)
+            self.buffer = deque(lines[max(0, start - 20):])
+            return self.buffer
 
     def _get_quantity_from_lines(
         self, line_to_match: str, err_str: str
@@ -91,11 +86,12 @@ class read_static_output:
         return self.dft_energy
 
     def read_assign_forces(self) -> None:
-        header_index = 0
+        header_index = None
         for idx, line in enumerate(self.buffer):
             if "force:  Atom" in line:
                 header_index = idx
-                break
+        if header_index is None:
+            raise ValueError("Could not find force header in output")
         temp = deque(
             islice(
                 self.buffer,
